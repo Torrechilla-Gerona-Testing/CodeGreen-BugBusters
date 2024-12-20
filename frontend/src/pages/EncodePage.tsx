@@ -20,9 +20,9 @@ const EncodePage = () => {
       <h1 className="text-white font-syke-light text-3xl mt-5">
         What would you like to do?
       </h1>
-      <div className="flex justify-center gap-10 p-3 mt-10">
+      <div className="flex flex-col sm:flex-row justify-center gap-5 p-3 mt-10">
         <div
-          className="flex items-center justify-center border-5 border-white w-72 h-40 rounded-lg border-2cursor-pointer hover:border-textgreen hover:border-4 transition-all bg-secondgrey text-buttongreen hover:text-textgreen"
+          className="flex items-center justify-center  w-72 h-40 rounded-lg cursor-pointer hover:border-textgreen hover:border-4 transition-all bg-secondgrey text-buttongreen hover:text-textgreen"
           onClick={handleAddDriverButton}>
           <span className="font-syke-medium text-white text-3xl">
             Add Driver
@@ -30,7 +30,7 @@ const EncodePage = () => {
         </div>
 
         <div
-          className="flex items-center justify-center w-72 h-40 rounded-lg border-2cursor-pointer border-white hover:border-textgreen hover:border-4 transition-all bg-secondgrey text-buttongreen hover:text-textgreen"
+          className="flex items-center justify-center w-72 h-40 rounded-lg cursor-pointer hover:border-textgreen hover:border-4 transition-all bg-secondgrey text-buttongreen hover:text-textgreen"
           onClick={handleAddViolationButton}>
           <span className="font-syke-medium text-white text-3xl">
             Add Violation
