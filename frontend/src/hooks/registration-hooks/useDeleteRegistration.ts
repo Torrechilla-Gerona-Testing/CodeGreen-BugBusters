@@ -2,7 +2,6 @@ import { BackendMessage } from "../../types/response.types";
 import { fetchWithAuth } from "../../utils/fetch";
 import useFetchWithAuthExports from "../context-hooks/useFetchWithAuthExports";
 import { toast } from "react-toastify";
-import { useState } from "react";
 import { LoadingContextType } from "../../types/loading.types";
 import useLoading from "../context-hooks/useLoading";
 
