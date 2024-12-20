@@ -90,7 +90,7 @@ const PreviewProfile = ({
             </div>
           </div>
         </div>
-        <div className="flex w-full flex-row-reverse ">
+        <div className="flex w-full flex-row-reverse">
           <button
             onClick={handleSendNotification}
             className="p-2 px-4 w-2/6 ml-4 lg:text-md md:text-xs sm:text-sm xs:text-xs text-2xs bg-buttongreen active:bg-colorhover transition-colors rounded-sm text-white font-syke-bold">

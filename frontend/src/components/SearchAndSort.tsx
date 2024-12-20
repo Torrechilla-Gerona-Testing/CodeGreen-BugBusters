@@ -1,9 +1,11 @@
 import React, { SetStateAction, useState } from "react";
-import { DriverWithVandC } from "../types/datatypes";
+import { DriverWithVandC, Registration } from "../types/datatypes";
 
 interface SearchAndSortProps {
-  entries: DriverWithVandC[];
-  setFilteredEntries: React.Dispatch<SetStateAction<DriverWithVandC[]>>;
+  entries?: DriverWithVandC[];
+  registrations?: Registration[];
+  setFilteredEntries?: React.Dispatch<SetStateAction<DriverWithVandC[]>>;
+  setFilteredRegisters?: React.Dispatch<SetStateAction<Registration[]>>;
   handleSortToggle: () => void;
   isSorted: boolean;
 }
@@ -11,6 +13,8 @@ interface SearchAndSortProps {
 const SearchAndSort = ({
   entries,
   setFilteredEntries,
+  setFilteredRegisters,
+  registrations,
   handleSortToggle,
   isSorted,
 }: SearchAndSortProps) => {
@@ -19,14 +23,28 @@ const SearchAndSort = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value;
     setSearchQuery(searchTerm);
+    if (location.pathname === "/registration-list") {
+      const filteredItems = registrations!.filter(
+        (register) =>
+          register!
+            .first_name!.toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          register!.last_name!.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
 
-    const filteredItems = entries!.filter(
-      (entry) =>
-        entry!.first_name!.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry!.last_name!.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry!.license_number!.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    if (searchQuery != null || "") setFilteredEntries(filteredItems);
+      if (searchQuery !== null || "") setFilteredRegisters!(filteredItems);
+    } else {
+      const filteredItems = entries!.filter(
+        (entry) =>
+          entry!.first_name!.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          entry!.last_name!.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          entry!
+            .license_number!.toLowerCase()
+            .includes(searchTerm.toLowerCase()),
+      );
+
+      if (searchQuery !== null || "") setFilteredEntries!(filteredItems);
+    }
   };
 
   return (
