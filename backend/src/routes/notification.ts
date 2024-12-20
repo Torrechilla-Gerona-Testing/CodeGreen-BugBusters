@@ -70,8 +70,7 @@ router.post("/add", async (req: Req, res: Response) => {
       title: "Notification Sent",
       message: "Notification has been sent successfully.",
     });
-  } catch (err) {
-    console.error("ERROR", err);
+  } catch {
     res
       .status(500)
       .json({ error: "An error occurred while creating notification." });
@@ -94,8 +93,7 @@ router.delete("/delete", async (req: Req, res: Response) => {
         message: "Notification successfully deleted.",
       });
     }
-  } catch (err) {
-    console.error(err);
+  } catch {
     res
       .status(500)
       .json({ message: "An error occurred while deleting the notification." });

@@ -23,7 +23,6 @@ router.get("/get", async (_req: Request, res: Response) => {
     res.json(registrations); // Send the registration list as a response
   } catch (error) {
     const errorMessage = (error as Error).message;
-    console.error("Error fetching registration list:", errorMessage);
     res.status(500).json({ title: "Unknown Error", message: errorMessage });
   }
 });
@@ -86,10 +85,8 @@ router.post("/add", async (req: Request, res: Response) => {
     });
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error occurred:", error.message);
       res.status(500).json({ title: "Server Error", message: error.message });
     } else {
-      console.error("Unexpected error occurred:", error);
       res.status(500).json({
         title: "Server Error",
         message: "An unexpected error occurred.",
@@ -114,8 +111,7 @@ router.delete("/delete", async (req: Request, res: Response): Promise<void> => {
       title: "Registration Deleted",
       message: `Registration with license number ${license_number} has been successfully deleted.`,
     });
-  } catch (error) {
-    console.error("Error occurred during deletion:", error);
+  } catch {
     res.status(500).json({
       success: false,
       title: "Server Error",
@@ -208,7 +204,6 @@ router.post("/approve", async (req: Request, res: Response) => {
     }
   } catch (error) {
     await client.query("ROLLBACK");
-    console.error("Error during approval process:", (error as Error).message);
     res
       .status(500)
       .json({ title: "Server Error", message: (error as Error).message });

@@ -46,7 +46,6 @@ router.post("/add", async (req: Request, res: Response) => {
     });
   } catch (error) {
     const errorMessage = (error as Error).message;
-    console.error("Error:", errorMessage);
     res.status(500).json({ title: "Error", message: errorMessage });
   }
 });

@@ -34,8 +34,7 @@ export const useApproveRegistration = () => {
 
       const data = await response.json();
       toast.success(data.message || "Registration approved successfully!");
-    } catch (error) {
-      console.error("Error approving registration:", error);
+    } catch {
       toast.error(
         "Network error occurred. Could not connect to the server. Please try again.",
       );

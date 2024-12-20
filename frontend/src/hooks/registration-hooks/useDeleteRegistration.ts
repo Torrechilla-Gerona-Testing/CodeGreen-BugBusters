@@ -30,8 +30,7 @@ export const useDeleteRegistration = () => {
       let responseBody;
       try {
         responseBody = await response.json();
-      } catch (error) {
-        console.error("Failed to parse JSON response:", error);
+      } catch {
         throw new Error("Invalid JSON response from server.");
       }
 
@@ -47,8 +46,7 @@ export const useDeleteRegistration = () => {
       } else {
         toast.error("Deletion failed on the server side.");
       }
-    } catch (error) {
-      console.error("Error during deletion:", error);
+    } catch {
       toast.error("Unexpected error occurred.");
     } finally {
       setAppLoading!(false);

@@ -22,10 +22,7 @@ export const useDeleteCar = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error response from server:", errorData); // Log server response
-
         toast.error(errorData.message);
-
         return;
       }
 
@@ -34,10 +31,8 @@ export const useDeleteCar = () => {
 
       return;
     } catch (err: unknown) {
-      console.error("Network error:", err);
-
       // Narrow down `err` to ensure it has a `message` property
-      const errorMessage =
+      const errorMessage = 
         err instanceof Error ? err.message : "Failed to connect to the server";
 
       toast.error(errorMessage);

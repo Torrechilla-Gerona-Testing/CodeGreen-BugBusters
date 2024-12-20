@@ -67,7 +67,6 @@ router.get("/get", async (req: Request, res: Response) => {
     res.json(drivers);
   } catch (error) {
     const errorMessage = (error as Error).message;
-    console.error("Error fetching drivers:", errorMessage); // Log the error for debugging
     res.status(500).json({ title: "Unknown Error", message: errorMessage });
   }
 });
@@ -192,7 +191,6 @@ router.delete("/delete", async (req: Request, res: Response) => {
     const { id } = req.body;
 
     if (!id) {
-      console.error("No ID provided in the request body");
       res.status(400).json({
         title: "Validation Error",
         message: "Driver ID is required to delete a record.",
@@ -210,7 +208,6 @@ router.delete("/delete", async (req: Request, res: Response) => {
     );
 
     if (resultDriver.rowCount === 0) {
-      console.error("Driver not found in the database");
       res.status(404).json({
         title: "Not Found",
         message: "Driver with the specified ID does not exist.",

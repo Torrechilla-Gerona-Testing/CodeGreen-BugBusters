@@ -36,8 +36,7 @@ const useCheckLicenseNumber = () => {
       const driver = await response.json();
 
       return driver;
-    } catch (error) {
-      console.error("Error checking license number:", error);
+    } catch {
       toast.error("Failed to verify license number.");
       return;
     } finally {

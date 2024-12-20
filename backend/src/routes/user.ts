@@ -30,9 +30,7 @@ router.get("/get", async (req: Request, res: Response) => {
       isDriver: drivers[0] ? true : false,
     }); // Send the user data as a response
   } catch (error) {
-    console.error(error);
     const errorMessage = (error as Error).message;
-    console.error("Error fetching the user:", errorMessage);
     res.status(500).json({ title: "Unknown Error", message: errorMessage });
   }
 });
