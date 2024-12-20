@@ -71,7 +71,7 @@ const DriversList = () => {
                 <div className="flex lg:flex-row flex-col text-textgreen pb-3">
                   <div>
                     <h1 className="lg:text-4xl text-3xl font-syke-bold">
-                      Drivers' List
+                      Drivers List
                     </h1>
                     <p className="lg:text-xl md:text-lg text-md font-syke-bold">
                       List of Drivers within the university.

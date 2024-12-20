@@ -63,7 +63,7 @@ router.post("/login", validateAuth, async (req: Request, res: Response) => {
     if (!user) {
       res.status(401).json({
         title: "Wrong Email or Password",
-        message: "The credentials entered are invalid.........",
+        message: "The credentials entered are invalid.",
       });
       return;
     }

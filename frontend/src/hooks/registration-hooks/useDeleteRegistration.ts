@@ -2,14 +2,15 @@ import { BackendMessage } from "../../types/response.types";
 import { fetchWithAuth } from "../../utils/fetch";
 import useFetchWithAuthExports from "../context-hooks/useFetchWithAuthExports";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { LoadingContextType } from "../../types/loading.types";
+import useLoading from "../context-hooks/useLoading";
 
 export const useDeleteRegistration = () => {
   const { auth, refresh, navigate } = useFetchWithAuthExports();
-  const [deleteloading, setdeleteLoading] = useState<boolean>(false);
+  const { setAppLoading }: LoadingContextType = useLoading();
 
   const deleteRegistration = async (licenseNumber: string) => {
-    setdeleteLoading(true);
+    setAppLoading!(true);
 
     try {
       // Send license_number in the request body as JSON
@@ -50,11 +51,11 @@ export const useDeleteRegistration = () => {
       console.error("Error during deletion:", error);
       toast.error("Unexpected error occurred.");
     } finally {
-      setdeleteLoading(false);
+      setAppLoading!(false);
     }
   };
 
-  return { deleteRegistration, deleteloading };
+  return { deleteRegistration };
 };
 
 export default useDeleteRegistration;
