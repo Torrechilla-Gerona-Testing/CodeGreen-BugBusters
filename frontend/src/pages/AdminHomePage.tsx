@@ -40,13 +40,13 @@ const AdminLandingPage = () => {
 
       <div className="font-syke-medium items-center text-3xl mt-10">
         <button
-          className="transition-transform w-[21rem] max-w-[21rem] h-[5]rem] duration-300 hover:scale-105 text-white px-5 py-4 rounded-lg bg-buttongreen active:bg-colorhover font-syke-medium"
+          className="transition-transform w-full max-w-md h-12 duration-300 hover:scale-105 text-white px-5 py-4 rounded-lg bg-buttongreen active:bg-colorhover font-syke-medium"
           onClick={handleEncodeButton}
         >
           Encode
         </button>
       </div>
-      <div className="grid lg:grid-cols-3 md:grid-cols-none font-syke-medium text-3xl gap-x-5 gap-y-5 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 font-syke-medium text-3xl gap-5 mt-6 w-full max-w-4xl">
         <button
           className="transition-transform duration-300 hover:scale-105 text-white px-5 py-4 rounded-md bg-buttongreen active:bg-colorhover font-syke-medium"
           onClick={handleAddDriverButton}
