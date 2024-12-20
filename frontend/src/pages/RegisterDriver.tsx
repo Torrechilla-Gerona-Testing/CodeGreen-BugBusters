@@ -102,7 +102,7 @@ const RegisterDriver = () => {
       const isValid = validateForm(); // Validate the form
       if (isValid) navigate("/homepage"); // Redirect to the homepage
     } catch (error) {
-      console.error("Error submitting the form:", error);
+      toast.error((error as Error).message);
     }
   };
   const handleChange = (

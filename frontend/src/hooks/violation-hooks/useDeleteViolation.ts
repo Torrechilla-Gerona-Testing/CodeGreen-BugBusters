@@ -22,10 +22,7 @@ export const useDeleteViolation = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error response from server:", errorData); // Log server response
-
         toast.error(errorData.message);
-
         return;
       }
 
@@ -34,7 +31,7 @@ export const useDeleteViolation = () => {
 
       return;
     } catch (err: unknown) {
-      console.error("Network error:", err);
+      toast.error("Network error occurred.");
 
       // Narrow down `err` to ensure it has a `message` property
       const errorMessage =

@@ -24,11 +24,10 @@ export const useEditViolation = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error response from server:", errorData); // Log server response
         toast.error(errorData.message);
         return;
       }
-
+      
       const notificationAPI = await response.json();
 
       toast.success(notificationAPI.message);

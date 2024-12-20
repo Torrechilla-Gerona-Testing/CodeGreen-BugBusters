@@ -27,8 +27,7 @@ export const useAddDriver = () => {
         const error: BackendMessage = await response.json();
         setError(error);
       }
-    } catch (error) {
-      console.error("Unexpected error:", error);
+    } catch {
       setError({ message: "An unexpected error occurred" } as BackendMessage);
     } finally {
       setTimeout(() => {

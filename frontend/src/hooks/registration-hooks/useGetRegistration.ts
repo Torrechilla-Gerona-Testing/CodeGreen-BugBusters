@@ -32,7 +32,6 @@ const useGetRegistration = () => {
         const registration = await response.json();
         setRegistration(registration);
       } catch (err) {
-        console.error("Unexpected error:", err);
         alert(err);
       } finally {
         setLoading(false);
