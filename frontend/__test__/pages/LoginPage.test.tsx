@@ -17,9 +17,9 @@ describe("registered user login, register as a driver", () => {
     (useLogin as Mock).mockReturnValue({
       loading: false,
       submitLogin: vi.fn(),
-    });
-  });
-  it("should show the text 'Log in to the monitor'", async () => {
+    })
+  })
+  it("should render the sign up button'", async () => {
     render(<LoginPage />, { wrapper: BrowserRouter });
 
     const signUpButtonElement = await screen.findByTestId("signup-button");

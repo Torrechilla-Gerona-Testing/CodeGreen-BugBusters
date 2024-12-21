@@ -2,17 +2,17 @@ import { useNavigate } from "react-router-dom";
 import AdminHeader from "../components/AdminHeader";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import useCheckLicenseNumber from "../hooks/car-hooks/useCheckLicenseNumber"; // import the hook
+import useCheckLicenseNumber from "../hooks/car-hooks/useCheckLicenseNumber"; 
 import { DriverWithVandC } from "../types/datatypes";
 import AddViolationComponent from "../components/AddViolationComponent";
 
 const AddViolation = () => {
   const navigate = useNavigate();
-  const { checkLicenseNumber, loading } = useCheckLicenseNumber(); // using the hook
+  const { checkLicenseNumber, loading } = useCheckLicenseNumber(); 
 
   const [currentStep, setCurrentStep] = useState(1);
   const [licenseNumber, setLicenseNumber] = useState("");
-  const [driverProfile, setDriverProfile] = useState<DriverWithVandC>(); // Store the driver profile
+  const [driverProfile, setDriverProfile] = useState<DriverWithVandC>(); 
   const [violationModalActive, setViolationModalActive] = useState(false);
 
   const handleCancelButton = () => {
@@ -38,70 +38,61 @@ const AddViolation = () => {
   };
 
   return (
-    <div className="flex flex-col items-center overflow-y-hidden bg-adminlanding-bg bg-cover bg-no-repeat sm:bg-top md:bg-right lg:bg-left h-screen">
-      <div>
+    <div className="flex flex-col items-center bg-adminlanding-bg bg-cover bg-no-repeat sm:bg-top md:bg-right lg:bg-left h-screen p-4">
+      <div className="w-full">
         <AdminHeader />
       </div>
 
       {currentStep === 1 && (
-        <div>
-          <div className="h-[auto] w-[auto] px-6 py-5 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
-            <div className="text-left font-syke-light text-white justify-center items-center">
-              <div className="text-textgreen">
-                <h1 className="text-4xl font-syke-bold">Adding a Violation</h1>
-                <div>Find the driver by searching for the license number.</div>
-              </div>
+        <div className="w-full max-w-lg px-6 py-5 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
+          <div className="text-left font-syke-light text-white">
+            <div className="text-textgreen">
+              <h1 className="text-2xl md:text-4xl font-syke-bold">Adding a Violation</h1>
+              <p>Find the driver by searching for the license number.</p>
+            </div>
 
-              <div className="w-[32rem] mt-[1rem]">
-                <form className="space-y-5">
-                  <div className="flex space-x-4">
-                    <div className="flex-1">
-                      <h1 className="text-white font-syke-light text-xl">
-                        License Number
-                      </h1>
-                      <input
-                        type="text"
-                        className="bg-secondgrey font-syke-regular text-[1.2rem] w-full mt-1 px-4 py-2 border h-10 border-none focus:outline-none focus:shadow-inner focus:ring-1 focus:ring-textgreen text-white placeholder-white placeholder-opacity-25 rounded-sm"
-                        name="license_number"
-                        value={licenseNumber}
-                        onChange={(e) => setLicenseNumber(e.target.value)}
-                        placeholder="Enter license number"
-                        required
-                      />
-                    </div>
-                  </div>
-                </form>
-              </div>
+            <div className="mt-4">
+              <form className="space-y-5">
+                <div>
+                  <label htmlFor="license_number" className="text-white font-syke-light text-lg">
+                    License Number
+                  </label>
+                  <input
+                    type="text"
+                    id="license_number"
+                    className="bg-secondgrey font-syke-regular text-lg w-full mt-1 px-4 py-2 border-none focus:outline-none focus:shadow-inner focus:ring-1 focus:ring-textgreen text-white placeholder-white placeholder-opacity-25 rounded-sm"
+                    value={licenseNumber}
+                    onChange={(e) => setLicenseNumber(e.target.value)}
+                    placeholder="Enter license number"
+                    required
+                  />
+                </div>
+              </form>
             </div>
           </div>
         </div>
       )}
 
       {currentStep === 2 && driverProfile && (
-        <div className="h-[auto] w-[auto] px-6 py-5 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
-          <div className="text-left font-syke-light text-white justify-center items-center">
+        <div className="w-full max-w-xl px-6 py-5 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
+          <div className="text-left font-syke-light text-white">
             <div className="text-textgreen">
-              <h1 className="text-4xl font-syke-bold">Driver Found</h1>
-              <div>Driver details are shown below.</div>
+              <h1 className="text-2xl md:text-4xl font-syke-bold">Driver Found</h1>
+              <p>Driver details are shown below.</p>
             </div>
 
-            <div className="w-[40rem] h-[auto] mt-4">
-              <form className="space-y-[2rem]">
-                <div className="flex space-x-4">
-                  <div className="flex-[1]">
-                    <h1 className="text-white font-syke-light text-xl">
-                      Last Name
-                    </h1>
-                    <h1 className="text-textgreen font-syke-medium text-3xl">
+            <div className="mt-4">
+              <form className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <h1 className="text-white font-syke-light text-xl">Last Name</h1>
+                    <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.last_name}
                     </h1>
                   </div>
-
-                  <div className="flex-1">
-                    <h1 className="text-white font-syke-light text-xl">
-                      First Name
-                    </h1>
-                    <h1 className="text-textgreen font-syke-medium text-3xl">
+                  <div>
+                    <h1 className="text-white font-syke-light text-xl">First Name</h1>
+                    <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.first_name}
                     </h1>
                   </div>
@@ -112,41 +103,27 @@ const AddViolation = () => {
                       {driverProfile.sex}
                     </h1>
                   </div>
-                </div>
-
-                <div className="flex space-x-4">
-                  <div className="flex-1">
-                    <h1 className="text-white font-syke-light text-xl">
-                      Date of Birth
-                    </h1>
-                    <h1 className="text-textgreen font-syke-medium text-3xl">
+                  <div>
+                    <h1 className="text-white font-syke-light text-xl">Date of Birth</h1>
+                    <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.date_of_birth}
                     </h1>
                   </div>
-                  <div className="flex-1">
-                    <h1 className="text-white font-syke-light text-xl">
-                      Driver Type
-                    </h1>
-                    <h1 className="text-textgreen font-syke-medium text-3xl">
+                  <div>
+                    <h1 className="text-white font-syke-light text-xl">Driver Type</h1>
+                    <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.driver_type}
                     </h1>
                   </div>
-                </div>
-
-                <div className="flex space-x-4">
-                  <div className="flex-1">
-                    <h1 className="text-white font-syke-light text-xl">
-                      License Number
-                    </h1>
-                    <h1 className="text-textgreen font-syke-medium text-3xl">
+                  <div>
+                    <h1 className="text-white font-syke-light text-xl">License Number</h1>
+                    <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.license_number}
                     </h1>
                   </div>
-                  <div className="flex-1">
-                    <h1 className="text-white font-syke-light text-xl">
-                      License Expiration Date
-                    </h1>
-                    <h1 className="text-textgreen font-syke-medium text-3xl">
+                  <div>
+                    <h1 className="text-white font-syke-light text-xl">License Expiration Date</h1>
+                    <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.license_expiration_date}
                     </h1>
                   </div>
@@ -157,41 +134,35 @@ const AddViolation = () => {
         </div>
       )}
 
-      {currentStep === 1 && (
-        <div className="text-center flex justify-center gap-5 p-5">
-          <div>
+      <div className="text-center flex justify-center gap-5 p-5">
+        {currentStep === 1 && (
+          <>
             <button
               type="button"
-              className="w-32 bg-buttongreen font-syke-medium text-white py-2 hover:bg-[#33471a] font-syke-regular transition-colors rounded-sm"
-              onClick={handleCancelButton}>
+              className="w-32 bg-buttongreen font-syke-medium text-white py-2 hover:bg-[#33471a] transition-colors rounded-sm"
+              onClick={handleCancelButton}
+            >
               Cancel
             </button>
-          </div>
-
-          <div>
             <button
               type="button"
-              className="w-32 bg-buttongreen font-syke-medium text-white py-2 hover:bg-[#33471a] font-syke-regular transition-colors rounded-sm"
+              className="w-32 bg-buttongreen font-syke-medium text-white py-2 hover:bg-[#33471a] transition-colors rounded-sm"
               onClick={handleNextClick}
-              disabled={loading}>
+              disabled={loading}
+            >
               {loading ? "Searching..." : "Search"}
             </button>
-          </div>
-        </div>
-      )}
-
-      {currentStep === 2 && (
-        <div className="flex justify-center gap-5 p-5">
-          <div>
+          </>
+        )}
+        {currentStep === 2 && (
+          <>
             <button
               type="button"
-              className="w-32 bg-buttongreen font-syke-medium text-white py-2 hover:bg-[#33471a] font-syke-regular transition-colors rounded-sm"
-              onClick={handleBackClick}>
+              className="w-32 bg-buttongreen font-syke-medium text-white py-2 hover:bg-[#33471a] transition-colors rounded-sm"
+              onClick={handleBackClick}
+            >
               Back
             </button>
-          </div>
-
-          <div>
             <button
               type="button"
               className="w-32 bg-buttongreen font-syke-medium text-white py-2 hover:bg-[#33471a] font-syke-regular transition-colors rounded-sm"
@@ -212,3 +183,4 @@ const AddViolation = () => {
 };
 
 export default AddViolation;
+
