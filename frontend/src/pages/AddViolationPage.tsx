@@ -2,17 +2,17 @@ import { useNavigate } from "react-router-dom";
 import AdminHeader from "../components/AdminHeader";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import useCheckLicenseNumber from "../hooks/car-hooks/useCheckLicenseNumber"; 
+import useCheckLicenseNumber from "../hooks/car-hooks/useCheckLicenseNumber";
 import { DriverWithVandC } from "../types/datatypes";
 import AddViolationComponent from "../components/AddViolationComponent";
 
 const AddViolation = () => {
   const navigate = useNavigate();
-  const { checkLicenseNumber, loading } = useCheckLicenseNumber(); 
+  const { checkLicenseNumber, loading } = useCheckLicenseNumber();
 
   const [currentStep, setCurrentStep] = useState(1);
   const [licenseNumber, setLicenseNumber] = useState("");
-  const [driverProfile, setDriverProfile] = useState<DriverWithVandC>(); 
+  const [driverProfile, setDriverProfile] = useState<DriverWithVandC>();
   const [violationModalActive, setViolationModalActive] = useState(false);
 
   const handleCancelButton = () => {
@@ -47,14 +47,19 @@ const AddViolation = () => {
         <div className="w-full max-w-lg px-6 py-5 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
           <div className="text-left font-syke-light text-white">
             <div className="text-textgreen">
-              <h1 className="text-2xl md:text-4xl font-syke-bold">Adding a Violation</h1>
+              <h1 className="text-2xl md:text-4xl font-syke-bold">
+                Adding a Violation
+              </h1>
               <p>Find the driver by searching for the license number.</p>
             </div>
 
             <div className="mt-4">
               <form className="space-y-5">
                 <div>
-                  <label htmlFor="license_number" className="text-white font-syke-light text-lg">
+                  <label
+                    htmlFor="license_number"
+                    className="text-white font-syke-light text-lg"
+                  >
                     License Number
                   </label>
                   <input
@@ -77,7 +82,9 @@ const AddViolation = () => {
         <div className="w-full max-w-xl px-6 py-5 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
           <div className="text-left font-syke-light text-white">
             <div className="text-textgreen">
-              <h1 className="text-2xl md:text-4xl font-syke-bold">Driver Found</h1>
+              <h1 className="text-2xl md:text-4xl font-syke-bold">
+                Driver Found
+              </h1>
               <p>Driver details are shown below.</p>
             </div>
 
@@ -85,13 +92,17 @@ const AddViolation = () => {
               <form className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <h1 className="text-white font-syke-light text-xl">Last Name</h1>
+                    <h1 className="text-white font-syke-light text-xl">
+                      Last Name
+                    </h1>
                     <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.last_name}
                     </h1>
                   </div>
                   <div>
-                    <h1 className="text-white font-syke-light text-xl">First Name</h1>
+                    <h1 className="text-white font-syke-light text-xl">
+                      First Name
+                    </h1>
                     <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.first_name}
                     </h1>
@@ -104,25 +115,33 @@ const AddViolation = () => {
                     </h1>
                   </div>
                   <div>
-                    <h1 className="text-white font-syke-light text-xl">Date of Birth</h1>
+                    <h1 className="text-white font-syke-light text-xl">
+                      Date of Birth
+                    </h1>
                     <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.date_of_birth}
                     </h1>
                   </div>
                   <div>
-                    <h1 className="text-white font-syke-light text-xl">Driver Type</h1>
+                    <h1 className="text-white font-syke-light text-xl">
+                      Driver Type
+                    </h1>
                     <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.driver_type}
                     </h1>
                   </div>
                   <div>
-                    <h1 className="text-white font-syke-light text-xl">License Number</h1>
+                    <h1 className="text-white font-syke-light text-xl">
+                      License Number
+                    </h1>
                     <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.license_number}
                     </h1>
                   </div>
                   <div>
-                    <h1 className="text-white font-syke-light text-xl">License Expiration Date</h1>
+                    <h1 className="text-white font-syke-light text-xl">
+                      License Expiration Date
+                    </h1>
                     <h1 className="text-textgreen font-syke-medium text-lg md:text-3xl">
                       {driverProfile.license_expiration_date}
                     </h1>
@@ -166,21 +185,21 @@ const AddViolation = () => {
             <button
               type="button"
               className="w-32 bg-buttongreen font-syke-medium text-white py-2 hover:bg-[#33471a] font-syke-regular transition-colors rounded-sm"
-              onClick={() => setViolationModalActive(true)}>
+              onClick={() => setViolationModalActive(true)}
+            >
               Add Violation
             </button>
-          </div>
-        </div>
-      )}
-      {violationModalActive && (
-        <AddViolationComponent
-          driverId={driverProfile!.id!}
-          setViolationModalActive={setViolationModalActive}
-        />
-      )}
+          </>
+        )}
+        {violationModalActive && (
+          <AddViolationComponent
+            driverId={driverProfile!.id!}
+            setViolationModalActive={setViolationModalActive}
+          />
+        )}
+      </div>
     </div>
   );
 };
 
 export default AddViolation;
-

@@ -48,7 +48,8 @@ const useLogin = () => {
       // To either navigate to the previous page where they go logged off or the landing page
       navigate(userInfo.isAdmin ? "/admin" : "/homepage");
     } catch (error) {
-      alert(error);
+      const errorMessage = (error as Error).message;
+      toast.error(errorMessage);
     } finally {
       // stop the loadings
       setAppLoading!(false);
