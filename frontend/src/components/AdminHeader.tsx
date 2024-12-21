@@ -89,17 +89,17 @@ const AdminHeader = () => {
                   <span
                     onClick={handleViolators}
                     className="z-50 block px-4 py-2 hover:bg-buttongreen cursor-pointer hover:rounded-t-md">
-                    Violator's List
+                    Violators List
                   </span>
                   <span
                     onClick={handleDrivers}
                     className=" z-50 block px-4 py-2 hover:bg-buttongreen cursor-pointer">
-                    Driver's List
+                    Drivers List
                   </span>
                   <span
                     onClick={handleRegistrations}
                     className="z-50 block px-4 py-2 hover:bg-buttongreen cursor-pointer hover:rounded-b-md">
-                    Registration's List
+                    Registrations List
                   </span>
                 </div>
               )}
