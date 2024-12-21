@@ -7,7 +7,7 @@ const VehicleList = ({ driver }: { driver: DriverWithVandC }) => {
       className="flex flex-col items-center justify-center w-full"
       data-testid="vehichlelist"
     >
-      <div className="w-full md:h-[25rem] h-full bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 overflow-y-auto scrollbar">
+      <div className="w-full h-[25rem] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 overflow-y-auto scrollbar">
         {
           driver.cars?.map((car) => (
             <CarListCard key={car.id || "placeholder-license"} car={car} />
