@@ -21,12 +21,12 @@ const AdminLandingPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-adminlanding-bg bg-cover bg-center sm:bg-cover md:bg-contain lg:bg-cover h-full">
+    <div className="flex flex-col items-center bg-adminlanding-bg bg-cover bg-center sm:bg-cover md:bg-contain lg:bg-cover h-screen">
       <div>
         <AdminHeader />
       </div>
 
-      <div className="flex flex-col items-center justify-center h-full p-6">
+      <div className="flex flex-col items-center h-full p-6">
         <div className="flex space-x-2 p-5">
           <h1 className="text-3xl text-textgreen font-syke-bold">Welcome,</h1>
           <h1 className="text-3xl text-white font-syke-bold">
@@ -34,15 +34,15 @@ const AdminLandingPage = () => {
           </h1>
         </div>
 
-        <div className="text-xl md:text-md sm-text-sm text-white font-syke-light text-center m-2 w-[3/12]">
+        <div className="lg:text-xl md:text-md text-sm text-white font-syke-light text-center m-2 w-[3/12]">
           Your dashboard to monitor, manage, and maintain order within the
           university premises is ready.
-          <p>
+          <p className="lg:text-xl md:text-md text-sm">
             Let's create a safer and more organized school environment together.{" "}
           </p>
         </div>
 
-        <div className="font-syke-medium items-center lg:text-3xl md:text-2xl text-xl md:w-1/3 w-1/2 mb-4">
+        <div className="font-syke-medium items-center lg:text-3xl md:text-2xl text-xl md:w-1/3 w-1/2 mb-4 md:mt-6">
           <button
             className="transition-transform w-full h-full duration-300 hover:scale-105 text-white px-5 py-4 rounded-lg bg-buttongreen active:bg-colorhover font-syke-medium"
             onClick={handleEncodeButton}
