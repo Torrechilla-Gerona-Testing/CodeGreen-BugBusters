@@ -135,8 +135,6 @@ router.post("/approve", async (req: Request, res: Response) => {
 
   const client = await pool.connect();
   try {
-    await client.query("BEGIN");
-
     const registration = await fetchRegistrationByLicense(license_number);
     if (!registration) {
       res.status(404).json({
@@ -172,7 +170,6 @@ router.post("/approve", async (req: Request, res: Response) => {
           title: "Driver Updated!",
           message: `Driver's email and user_id have been updated successfully.`,
         });
-        await client.query("COMMIT");
         return;
       }
 
@@ -191,7 +188,6 @@ router.post("/approve", async (req: Request, res: Response) => {
           title: "Driver Updated!",
           message: `Driver's user_id has been updated successfully.`,
         });
-        await client.query("COMMIT");
         return;
       }
     } else {
@@ -203,7 +199,6 @@ router.post("/approve", async (req: Request, res: Response) => {
       return;
     }
   } catch (error) {
-    await client.query("ROLLBACK");
     res
       .status(500)
       .json({ title: "Server Error", message: (error as Error).message });
