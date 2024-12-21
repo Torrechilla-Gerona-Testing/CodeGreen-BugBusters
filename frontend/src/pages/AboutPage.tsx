@@ -2,16 +2,15 @@ import Header from "../components/Header";
 
 const AboutPage = () => {
   return (
-    <div className="flex flex-col items-center bg-policies-bg bg-cover bg-no-repeat sm:bg-top md:bg-right lg:bg-left h-screen">
-      <div>
+    <div className="flex flex-col items-center bg-policies-bg bg-cover bg-no-repeat sm:bg-top md:bg-right lg:bg-left min-h-screen px-4">
+      <div className="w-full">
         <Header />
       </div>
-      <div className="w-[50rem] h-[30rem] bg-gray-400 overflow-y-auto rounded-md z-auto scrollbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
+      <div className="w-full max-w-4xl h-auto max-h-[70vh] bg-gray-400 overflow-y-auto rounded-md mt-6 p-4 scrollbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
         <div className="text-left py-2 px-6 rounded-xl bg-clip-padding ">
-        <div className=" overflow-y-auto scrollbar">
-          <h1 className="text-textgreen font-syke-medium text-2xl mt-4">About Us</h1>
+          <h1 className="text-textgreen font-syke-medium text-xl sm:text-2xl mt-4">About Us</h1>
 
-          <p className="text-white font-syke">
+          <p className="text-white font-syke text-sm sm:text-base mt-2">
             Welcome to CodeGreen Gateway, the official parking management system
             for our school. We strive to maintain an organized, secure, <br />
             and efficient parking environment on campus, ensuring that both
@@ -22,7 +21,7 @@ const AboutPage = () => {
             Our Mission
           </h1>
 
-          <p className="text-white font-syke">
+          <p className="text-white font-syke text-sm sm:text-base mt-2">
             Our mission is to provide a streamlined, digital platform to manage
             parking within the campus. By creating a comprehensive system for
             tracking parking
@@ -31,9 +30,11 @@ const AboutPage = () => {
             all members of our community.
           </p>
 
-          <h1 className="text-textgreen font-syke-medium  text-2xl mt-4">What We Do</h1>
+          <h1 className="text-textgreen font-syke-medium text-xl sm:text-2xl mt-4">
+            What We Do
+          </h1>
 
-          <p className="text-white font-syke">
+          <p className="text-white font-syke text-sm sm:text-base mt-2">
             At CodeGreen Gateway, we offer a secure and easy-to-use platform for
             the administration to manage parking within the school campus. Our
             system allows <br /> administrators to track, report, and address
@@ -41,7 +42,7 @@ const AboutPage = () => {
             effectively. The website allows for:
           </p>
 
-          <ul className="space-y-2 list-disc font-syke-light ml-12 mt-4 text-white">
+          <ul className="space-y-2 list-disc font-syke-light ml-6 sm:ml-12 mt-4 text-white text-sm sm:text-base">
             <li>
               <span className="text-textgreen font-bold mr-1">
                 Parking Violation Reporting :
@@ -76,12 +77,14 @@ const AboutPage = () => {
             </li>
           </ul>
 
-          <h1 className="text-textgreen text-2xl font-syke-medium mt-4">Our Goals</h1>
-          <p className="text-white font-syke">
+          <h1 className="text-textgreen text-xl sm:text-2xl font-syke-medium mt-4">
+            Our Goals
+          </h1>
+          <p className="text-white font-syke text-sm sm:text-base mt-2">
             As our school grows, so does the need for a smarter way to manage
             parking. With CodeGreen Gateway, we hope to:
           </p>
-          <ul className="space-y-2 list-disc ml-12 mt-4 font-syke-light text-white">
+          <ul className="space-y-2 list-disc ml-6 sm:ml-12 mt-4 font-syke-light text-white text-sm sm:text-base">
             <li>Improve parking compliance and reduce violations</li>
 
             <li>Foster a safer parking environment for everyone on campus</li>
@@ -98,7 +101,6 @@ const AboutPage = () => {
           </ul>
         </div>
       </div>
-          </div>
     </div>
   );
 };
