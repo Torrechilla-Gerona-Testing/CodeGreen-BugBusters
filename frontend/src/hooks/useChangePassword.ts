@@ -31,6 +31,7 @@ const useChangePassword = () => {
 
       const notification = await response.json();
       toast.success(notification.message);
+      navigate("/desired-route"); 
     } catch (error) {
       alert(error);
     } finally {
