@@ -8,7 +8,7 @@ const router = express.Router();
 const fetchRegistrationByLicense = async (license_number: string) => {
   const { rows } = await pool.query(
     `SELECT school_email, user_id FROM registrations WHERE license_number = $1`,
-    [license_number]
+    [license_number],
   );
   return rows[0];
 };
@@ -16,16 +16,13 @@ const fetchRegistrationByLicense = async (license_number: string) => {
 // GET route to fetch all registrations
 router.get("/get", async (_req: Request, res: Response) => {
   try {
-    console.log("Fetching registration from the database...");
     const { rows: registrations } = await pool.query(
-      "SELECT user_id, license_number, school_email, first_name, last_name, middle_name, date_of_birth, driver_type, sex FROM registrations"
+      "SELECT user_id, license_number, school_email, first_name, last_name, middle_name, date_of_birth, driver_type, sex FROM registrations",
     );
-    console.log("Registrations fetched successfully:", registrations);
 
     res.json(registrations); // Send the registration list as a response
   } catch (error) {
     const errorMessage = (error as Error).message;
-    console.error("Error fetching registration list:", errorMessage);
     res.status(500).json({ title: "Unknown Error", message: errorMessage });
   }
 });
@@ -46,7 +43,6 @@ router.post("/add", async (req: Request, res: Response) => {
       driver_type,
     } = req.body as Registration;
 
-    console.log(req.body);
     if (
       ![
         license_number,
@@ -80,7 +76,7 @@ router.post("/add", async (req: Request, res: Response) => {
         date_of_birth,
         driver_type,
         sex,
-      ]
+      ],
     );
 
     res.status(201).json({
@@ -89,15 +85,39 @@ router.post("/add", async (req: Request, res: Response) => {
     });
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error occurred:", error.message);
       res.status(500).json({ title: "Server Error", message: error.message });
     } else {
-      console.error("Unexpected error occurred:", error);
       res.status(500).json({
         title: "Server Error",
         message: "An unexpected error occurred.",
       });
     }
+  }
+});
+
+router.delete("/delete", async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { license_number } = req.body as Registration; // Extract license_number from request body
+
+    // Attempt to delete the registration
+    await pool.query(
+      `DELETE FROM registrations WHERE license_number = $1 RETURNING *`,
+      [license_number],
+    );
+
+    // If deletion was successful, return a success response
+    res.status(200).json({
+      success: true,
+      title: "Registration Deleted",
+      message: `Registration with license number ${license_number} has been successfully deleted.`,
+    });
+  } catch {
+    res.status(500).json({
+      success: false,
+      title: "Server Error",
+      message: "An error occurred while attempting to delete the registration.",
+      // error: error.message, // Include error message for debugging
+    });
   }
 });
 
@@ -130,7 +150,7 @@ router.post("/approve", async (req: Request, res: Response) => {
 
     const { rows: existingDrivers } = await client.query(
       `SELECT id, email FROM drivers WHERE license_number = $1`,
-      [license_number]
+      [license_number],
     );
 
     if (existingDrivers.length > 0) {
@@ -140,12 +160,12 @@ router.post("/approve", async (req: Request, res: Response) => {
       if (!existingDriver.email) {
         await client.query(
           `UPDATE drivers SET email = $1, user_id = $2 WHERE license_number = $3`,
-          [school_email, user_id, license_number]
+          [school_email, user_id, license_number],
         );
 
         await client.query(
           `DELETE FROM registrations WHERE license_number = $1`,
-          [license_number]
+          [license_number],
         );
 
         res.status(200).json({
@@ -159,12 +179,12 @@ router.post("/approve", async (req: Request, res: Response) => {
       if (existingDriver.email) {
         await client.query(
           `UPDATE drivers SET user_id = $1 WHERE license_number = $2`,
-          [user_id, license_number]
+          [user_id, license_number],
         );
 
         await client.query(
           `DELETE FROM registrations WHERE license_number = $1`,
-          [license_number]
+          [license_number],
         );
 
         res.status(200).json({
@@ -184,7 +204,6 @@ router.post("/approve", async (req: Request, res: Response) => {
     }
   } catch (error) {
     await client.query("ROLLBACK");
-    console.error("Error during approval process:", (error as Error).message);
     res
       .status(500)
       .json({ title: "Server Error", message: (error as Error).message });

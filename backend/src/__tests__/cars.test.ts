@@ -22,9 +22,7 @@ describe("Cars API", () => {
 
   describe("POST /check-license", () => {
     it("should return 401 if license number is not found", async () => {
-      (
-      pool.query as Mock
-      ).mockResolvedValue({
+      (pool.query as Mock).mockResolvedValue({
         rows: [],
       });
 
@@ -39,14 +37,12 @@ describe("Cars API", () => {
       });
       expect(pool.query).toHaveBeenCalledWith(
         "SELECT id FROM drivers WHERE license_number = $1",
-        ["12345678"]
+        ["12345678"],
       );
     });
 
     it("should return 200 if license number is found", async () => {
-      (
-        pool.query as Mock
-      ).mockResolvedValue({
+      (pool.query as Mock).mockResolvedValue({
         rows: [{ id: 1 }],
       });
 
@@ -61,9 +57,7 @@ describe("Cars API", () => {
 
   describe("POST /add", () => {
     it("should return 404 if driver is not found", async () => {
-      (
-        pool.query as Mock
-      ).mockResolvedValueOnce({ rows: [] });
+      (pool.query as Mock).mockResolvedValueOnce({ rows: [] });
 
       const response = await request(app).post("/add").send({
         car_model: "Tesla",
@@ -82,9 +76,7 @@ describe("Cars API", () => {
     });
 
     it("should add a car and return 200", async () => {
-      (
-        pool.query as Mock
-      )
+      (pool.query as Mock)
         .mockResolvedValueOnce({ rows: [{ id: 1 }] }) // Mock driver query
         .mockResolvedValueOnce({ rows: [{ id: 1 }] }); // Mock car insert
 
@@ -115,9 +107,7 @@ describe("Cars API", () => {
     });
 
     it("should return 404 if no cars are found", async () => {
-      (
-        pool.query as Mock
-      ).mockResolvedValue({ rows: [] });
+      (pool.query as Mock).mockResolvedValue({ rows: [] });
 
       const response = await request(app).get("/get?driverId=1");
 
@@ -129,9 +119,7 @@ describe("Cars API", () => {
     });
 
     it("should return cars for a valid driverId", async () => {
-      (
-        pool.query as Mock
-      ).mockResolvedValue({
+      (pool.query as Mock).mockResolvedValue({
         rows: [
           {
             car_model: "Tesla",
@@ -172,9 +160,7 @@ describe("Cars API", () => {
     });
 
     it("should update a car and return 200", async () => {
-      (
-        pool.query as Mock
-      ).mockResolvedValue({
+      (pool.query as Mock).mockResolvedValue({
         rowCount: 1,
         rows: [{ id: 1, car_model: "Tesla", license_plate: "ABC123" }],
       });
@@ -195,9 +181,7 @@ describe("Cars API", () => {
 
   describe("DELETE /delete", () => {
     it("should delete a car and return 200", async () => {
-      (
-        pool.query as Mock
-      ).mockResolvedValue({
+      (pool.query as Mock).mockResolvedValue({
         rowCount: 1,
       });
 

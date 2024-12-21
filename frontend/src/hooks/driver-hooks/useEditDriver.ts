@@ -19,7 +19,7 @@ export const useEditDriver = () => {
         auth,
         "/driver/update",
         "PATCH",
-        updatedDriver
+        updatedDriver,
       );
 
       if (!response.ok) {

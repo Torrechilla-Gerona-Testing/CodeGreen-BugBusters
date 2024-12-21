@@ -10,13 +10,12 @@ const useCheckLicenseNumber = () => {
   const { auth, refresh, navigate } = useFetchWithAuthExports();
 
   const checkLicenseNumber = async (
-    license_number: string
+    license_number: string,
   ): Promise<DriverWithVandC | undefined> => {
     setLoading(true);
 
     try {
       // Make sure license_number is URL-safe
-      console.log(license_number);
       const response = await fetchWithAuth(
         navigate,
         refresh,
@@ -25,7 +24,7 @@ const useCheckLicenseNumber = () => {
         "post",
         {
           license_number,
-        }
+        },
       );
 
       if (!response.ok) {
@@ -37,8 +36,7 @@ const useCheckLicenseNumber = () => {
       const driver = await response.json();
 
       return driver;
-    } catch (error) {
-      console.error("Error checking license number:", error);
+    } catch {
       toast.error("Failed to verify license number.");
       return;
     } finally {

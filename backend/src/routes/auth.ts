@@ -15,7 +15,7 @@ router.post("/signup", validateAuth, async (req: Request, res: Response) => {
 
     const existingUser = await pool.query(
       "SELECT * FROM users WHERE email = $1",
-      [email]
+      [email],
     );
 
     if (existingUser.rowCount !== 0) {
@@ -38,7 +38,7 @@ router.post("/signup", validateAuth, async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password!, salt);
     await pool.query(
       "INSERT INTO users (first_name, last_name, email, password, salt) VALUES ($1, $2, $3, $4, $5)",
-      [first_name, last_name, email, hashedPassword, salt]
+      [first_name, last_name, email, hashedPassword, salt],
     );
     res.status(200).json({
       title: "Account Created Successfully",
@@ -55,16 +55,15 @@ router.post("/login", validateAuth, async (req: Request, res: Response) => {
 
     const { rows: users } = await pool.query(
       "SELECT * FROM users WHERE email = $1",
-      [email]
+      [email],
     );
 
     const user = (await users[0]) as User;
-    // console.log(user);
 
     if (!user) {
       res.status(401).json({
         title: "Wrong Email or Password",
-        message: "The credentials entered are invalid.........",
+        message: "The credentials entered are invalid.",
       });
       return;
     }
@@ -79,8 +78,6 @@ router.post("/login", validateAuth, async (req: Request, res: Response) => {
       });
       return;
     }
-    // console.log(user.password);
-    // console.log(hashedPassword);
 
     const refreshToken = generateRefreshToken(user.id!);
     const accessToken = generateAccessToken(user.id!);
@@ -92,7 +89,6 @@ router.post("/login", validateAuth, async (req: Request, res: Response) => {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
     });
-    // console.log(req.cookies.jwt);
     res.status(200).json({ accessToken, isAdmin: user.is_admin, id: user.id });
   } catch (error) {
     const errorMessage = (error as Error).message;
@@ -112,15 +108,12 @@ router.get("/refresh", async (req: Request, res: Response) => {
     }
 
     const refreshToken = cookies.jwt;
-    // console.log(refreshToken);
 
     const foundUser = (
       await pool.query("SELECT * FROM users WHERE refresh_token = $1", [
         refreshToken,
       ])
     ).rows[0];
-
-    // console.log(foundUser);
 
     if (!foundUser) {
       res.status(403).json({
@@ -134,16 +127,14 @@ router.get("/refresh", async (req: Request, res: Response) => {
     try {
       const payload = jwt.verify(
         refreshToken,
-        process.env.REFRESH_TOKEN_SECRET!
+        process.env.REFRESH_TOKEN_SECRET!,
       ) as JwtPayload;
 
-      console.log(payload.userId);
       const accessToken = generateAccessToken(payload.userId);
       res
         .status(200)
         .json({ accessToken, isAdmin: foundUser.is_admin, id: foundUser.id });
-    } catch (error) {
-      console.log(error);
+    } catch {
       res.status(403).json({
         title: "No Access Rights",
         message: "You do not have access to these features.",
@@ -172,7 +163,7 @@ router.get("/logout", async (req: Request, res: Response) => {
 
     const { rows: users } = await pool.query(
       "SELECT * FROM users WHERE refresh_token = $1",
-      [refreshToken]
+      [refreshToken],
     );
 
     const foundUser = users[0];

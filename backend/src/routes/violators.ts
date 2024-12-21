@@ -11,17 +11,17 @@ router.get("/get", async (_req: Request, res: Response) => {
     const driversWithViolations = drivers.map(async (driver) => {
       const { rows: violations } = await pool.query(
         "SELECT * FROM violations WHERE driver_id = $1",
-        [driver.id]
+        [driver.id],
       );
       return await { ...driver, violations: violations };
     });
 
     const unpromisedDriversWithViolations = await Promise.all(
-      driversWithViolations
+      driversWithViolations,
     );
 
     const violators = unpromisedDriversWithViolations.filter(
-      (driver) => driver.violations[0]
+      (driver) => driver.violations[0],
     );
 
     if (violators.length === 0) {
@@ -33,8 +33,7 @@ router.get("/get", async (_req: Request, res: Response) => {
     }
 
     res.status(200).json(violators);
-  } catch (error) {
-    console.log(error);
+  } catch {
     res.sendStatus(500);
   }
 });

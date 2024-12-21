@@ -4,7 +4,7 @@ import allowedOrigins from "../config/allowedOrigins";
 export const credentials = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin!)) {

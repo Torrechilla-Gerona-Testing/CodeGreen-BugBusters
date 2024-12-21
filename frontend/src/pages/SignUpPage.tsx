@@ -12,7 +12,7 @@ const initialFormData = {
   confirm_password: "",
 };
 
-const SignUp = () => {
+const SignUpPage = () => {
   const navigate = useNavigate();
 
   const [signUpForm, setSignUpForm] = useState<UserSignUp>(initialFormData);
@@ -27,7 +27,8 @@ const SignUp = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await submitSignUp(signUpForm);
+    const successful = await submitSignUp(signUpForm);
+    if (successful) navigate("/login");
   };
 
   const handleLogInButton = () => {
@@ -43,19 +44,22 @@ const SignUp = () => {
         </div>
 
         <div className="w-1/2">
-          <h2 className="lg:text-3xl md:text-2xl sm:text-xl text-lg text-textgreen font-syke-regular-">Create new account</h2>
+          <h2 className="lg:text-3xl md:text-2xl sm:text-xl text-lg text-textgreen font-syke-regular-">
+            Create new account
+          </h2>
           <h1 className="lg:text-sm md:text-xs text-xxs mb-1 text-white">
             Already have an account?{" "}
             <button
               className="text-buttongreen font-syke-medium"
               type="button"
-              onClick={handleLogInButton}
-            >
+              onClick={handleLogInButton}>
               Log In
             </button>
           </h1>
 
-          <form className="space-y-2" onSubmit={handleSubmit}>
+          <form
+            className="space-y-2"
+            onSubmit={handleSubmit}>
             <div className="flex space-x-2.5">
               <div className="flex-1">
                 <input
@@ -117,7 +121,11 @@ const SignUp = () => {
               type="submit"
               className="flex justify-center items-center justify-self-end w-auto bg-buttongreen font-syke-regular text-white py-2 px-5 hover:bg-[#33471a] transition-colors rounded-sm lg:text-sm md:text-xs text-xxs">
               {loading ? (
-                <Spinner size={15} color="#fff" animating={loading} />
+                <Spinner
+                  size={15}
+                  color="#fff"
+                  animating={loading}
+                />
               ) : (
                 "Create account"
               )}
@@ -129,4 +137,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;

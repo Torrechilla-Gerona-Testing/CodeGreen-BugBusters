@@ -9,12 +9,11 @@ router.post("/check-license", async (req: Request, res: Response) => {
     const { license_number } = req.body;
 
     const { rows: drivers } = await pool.query(
-      `SELECT id FROM drivers WHERE license_number = $1`,
-      [license_number]
+      `SELECT * FROM drivers WHERE license_number = $1`,
+      [license_number],
     );
 
     const driverFound = drivers[0];
-    console.log(drivers);
 
     if (!driverFound) {
       res.status(401).json({
@@ -42,20 +41,11 @@ router.post("/add", async (req: Request, res: Response) => {
       license_number,
     }: Cars = req.body;
 
-    console.log(
-      car_model,
-      license_plate,
-      license_number,
-      color,
-      driver_id,
-      brand
-    );
-
     const { rows: drivers } = await pool.query(
       `SELECT id
               FROM drivers
               WHERE id = $1`,
-      [driver_id]
+      [driver_id],
     );
 
     const driverFound = await drivers[0];
@@ -67,7 +57,7 @@ router.post("/add", async (req: Request, res: Response) => {
       return;
     }
 
-    const car = await pool.query(
+    await pool.query(
       `INSERT INTO cars (
             driver_id,
             car_model,
@@ -77,9 +67,8 @@ router.post("/add", async (req: Request, res: Response) => {
             license_number)
             VALUES($1, $2, $3, $4, $5, $6)`,
 
-      [driver_id, car_model, license_plate, brand, color, license_number]
+      [driver_id, car_model, license_plate, brand, color, license_number],
     );
-    console.log(car.rows);
     res.status(200).json({
       title: "Car Added!",
       message: `Car ${brand} ${car_model} ${color} with a license plate of ${license_plate} has been added!`,
@@ -93,8 +82,6 @@ router.post("/add", async (req: Request, res: Response) => {
 router.get("/get", async (req: Request, res: Response) => {
   try {
     const { driverId } = req.query;
-
-    console.log("Received driverId:", driverId);
 
     if (!driverId) {
       res.status(400).json({
@@ -110,7 +97,7 @@ router.get("/get", async (req: Request, res: Response) => {
       `SELECT car_model, license_plate, brand, color, license_number 
        FROM cars 
        WHERE driver_id = $1`,
-      [driverIdStr]
+      [driverIdStr],
     );
 
     if (cars.length === 0) {
@@ -162,7 +149,6 @@ router.patch("/update", async (req: Request, res: Response) => {
     }
 
     const updateCar = result.rows[0];
-    console.log("Car updated successfully:", updateCar);
 
     res.status(200).json({
       title: "Car Updated!",
@@ -177,19 +163,16 @@ router.patch("/update", async (req: Request, res: Response) => {
 
 router.delete("/delete", async (req: Request, res: Response) => {
   try {
-    console.log("Fetching. . .");
-
-    const car = await pool.query(
+    await pool.query(
       `DELETE FROM 
             cars 
             WHERE 
             id = $1 
             RETURNING *`,
-      [req.body.id]
+      [req.body.id],
     );
 
     res.status(200).json({ message: "Car Added Successfully" });
-    console.log("Driver deleted successfully:", car);
   } catch (error) {
     const errorMessage = (error as Error).message;
     res.status(500).json({ title: "Unknown Error", message: errorMessage });

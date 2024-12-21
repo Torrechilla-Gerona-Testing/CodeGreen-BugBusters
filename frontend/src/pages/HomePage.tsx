@@ -65,9 +65,8 @@ const HomePage = () => {
               🎉 Registration Submitted!
             </h1>
 
-            {/* Typewriter Animation */}
             <div className="relative text-sm sm:text-base lg:text-lg text-white overflow-hidden h-auto">
-              <p className="inline-block whitespace-nowrap border-r-2 border-textgreen pr-2 animate-typewriter break-word">
+              <p className="inline-block ">
                 Thank you for registering as a driver. Our team is reviewing
                 your details to validate your registration.
               </p>
@@ -87,7 +86,7 @@ const HomePage = () => {
                   href="mailto:support@example.com"
                   className="text-buttongreen underline hover:text-textgreen transition duration-300"
                 >
-                  support@example.com
+                  jrofer.casio11@gmail.com
                 </a>
                 .
               </p>

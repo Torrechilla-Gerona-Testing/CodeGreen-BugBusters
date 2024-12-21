@@ -9,7 +9,7 @@ router.get("/get-by-user", async (req: Req, res: Response) => {
 
   const { rows: drivers } = await pool.query(
     "SELECT * FROM drivers WHERE user_id = $1",
-    [id]
+    [id],
   );
 
   const foundDriver = await drivers[0];
@@ -17,7 +17,7 @@ router.get("/get-by-user", async (req: Req, res: Response) => {
   try {
     const { rows: notifications } = await pool.query(
       "SELECT * FROM notifications WHERE driver_id = $1",
-      [foundDriver.id]
+      [foundDriver.id],
     );
 
     if (notifications.length === 0) {
@@ -25,8 +25,7 @@ router.get("/get-by-user", async (req: Req, res: Response) => {
     } else {
       res.json(notifications);
     }
-  } catch (err) {
-    console.log(err);
+  } catch {
     res.status(500).json({
       title: "Server Error",
       message: "An unexpected error occurred while retrieving notifications",
@@ -41,7 +40,7 @@ router.post("/add", async (req: Req, res: Response) => {
 
     const { rows: drivers } = await pool.query(
       "SELECT * FROM drivers WHERE id = $1",
-      [driver_id]
+      [driver_id],
     );
 
     if (drivers.length === 0) {
@@ -56,7 +55,7 @@ router.post("/add", async (req: Req, res: Response) => {
 
     const { rows: notifications } = await pool.query(
       "INSERT INTO notifications (driver_id, title, message) VALUES ($1, $2, $3) RETURNING *",
-      [driver.id, title, message]
+      [driver.id, title, message],
     );
 
     if (notifications.length === 0) {
@@ -71,8 +70,7 @@ router.post("/add", async (req: Req, res: Response) => {
       title: "Notification Sent",
       message: "Notification has been sent successfully.",
     });
-  } catch (err) {
-    console.error("ERROR", err);
+  } catch {
     res
       .status(500)
       .json({ error: "An error occurred while creating notification." });
@@ -85,7 +83,7 @@ router.delete("/delete", async (req: Req, res: Response) => {
   try {
     const { rows: notifications } = await pool.query(
       "DELETE FROM notifications WHERE id = $1 RETURNING *",
-      [id]
+      [id],
     );
     if (notifications.length === 0) {
       res.status(404).json({ error: "Notification not found." });
@@ -95,8 +93,7 @@ router.delete("/delete", async (req: Req, res: Response) => {
         message: "Notification successfully deleted.",
       });
     }
-  } catch (err) {
-    console.error(err);
+  } catch {
     res
       .status(500)
       .json({ message: "An error occurred while deleting the notification." });

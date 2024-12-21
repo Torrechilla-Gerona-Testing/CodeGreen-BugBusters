@@ -19,15 +19,14 @@ export const useAddRegistration = () => {
         auth,
         "/registration/add",
         "POST",
-        formData
+        formData,
       );
 
       if (!response.ok) {
         const error: BackendMessage = await response.json();
         setError(error);
       }
-    } catch (error) {
-      console.error("Unexpected error:", error);
+    } catch {
       setError({ message: "An unexpected error occurred" } as BackendMessage);
     } finally {
       setTimeout(() => {

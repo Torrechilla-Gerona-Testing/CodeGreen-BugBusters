@@ -36,7 +36,7 @@ server.use(
       }
     },
     optionsSuccessStatus: 200,
-  })
+  }),
 );
 
 // For Cookies
@@ -64,6 +64,6 @@ const PORT = Number(process.env.PORT) || 3000;
 
 server.listen(PORT, "0.0.0.0", () => {
   console.log(
-    `The Server for CodeGreen has Started at http://localhost:${PORT}`
+    `The Server for CodeGreen has Started at http://localhost:${PORT}`,
   );
 });

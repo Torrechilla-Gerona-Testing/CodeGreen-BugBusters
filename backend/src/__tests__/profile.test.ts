@@ -69,11 +69,9 @@ describe("GET /profile/get/:id", () => {
     expect(response.body.violations.length).toBe(2);
     expect(response.body.cars.length).toBe(2);
     expect(response.body.violations[0].description).toBe(
-      mockViolations[0].description
+      mockViolations[0].description,
     );
-    expect(response.body.cars[0].car_model).toBe(
-      mockCars[0].car_model
-    );
+    expect(response.body.cars[0].car_model).toBe(mockCars[0].car_model);
   });
 
   it("should return 404 if driver is not found", async () => {

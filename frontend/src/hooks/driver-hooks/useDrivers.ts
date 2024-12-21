@@ -18,7 +18,7 @@ const useDrivers = () => {
         refresh,
         auth,
         "/driver/get",
-        "get"
+        "get",
       );
 
       if (!response.ok) {
@@ -28,8 +28,7 @@ const useDrivers = () => {
         const drivers: DriverWithVandC[] = await response.json();
         setData(drivers);
       }
-    } catch (err) {
-      console.error("Unexpected error:", err);
+    } catch {
       setError({ message: "An unexpected error occurred" } as BackendMessage);
     } finally {
       setLoading(false);

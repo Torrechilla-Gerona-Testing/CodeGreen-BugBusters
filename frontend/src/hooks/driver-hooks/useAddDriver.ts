@@ -14,23 +14,20 @@ export const useAddDriver = () => {
     setLoading(true);
 
     try {
-      console.log(`FORM DATA: ${JSON.stringify(formData)}`);
       const response = await fetchWithAuth(
         navigate,
         refresh,
         auth,
         "/driver/add",
         "POST",
-        formData
+        formData,
       );
 
       if (!response.ok) {
         const error: BackendMessage = await response.json();
         setError(error);
-        console.log("What are you doing?!");
       }
-    } catch (error) {
-      console.error("Unexpected error:", error);
+    } catch {
       setError({ message: "An unexpected error occurred" } as BackendMessage);
     } finally {
       setTimeout(() => {

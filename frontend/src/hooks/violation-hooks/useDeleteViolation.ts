@@ -11,37 +11,32 @@ export const useDeleteViolation = () => {
   const deleteViolation = async (violationId: string) => {
     setAppLoading!(true);
     try {
-      console.log("Sending delete request for violation ID:", violationId); // Log driverId
-
       const response = await fetchWithAuth(
         navigate,
         refresh,
         auth,
         "/violation/delete",
         "delete",
-        { violationId }
+        { violationId },
       );
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error response from server:", errorData); // Log server response
-
         toast.error(errorData.message);
-
         return;
       }
 
       const notificationAPI = await response.json();
       toast.success(notificationAPI.message);
 
-      console.log("Violation deleted successfully");
       return;
     } catch (err: unknown) {
-      console.error("Network error:", err);
+      toast.error("Network error occurred.");
 
       // Narrow down `err` to ensure it has a `message` property
-      const errorMessage = err instanceof Error ? err.message : "Failed to connect to the server";
-      
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to connect to the server";
+
       toast.error(errorMessage);
 
       return;

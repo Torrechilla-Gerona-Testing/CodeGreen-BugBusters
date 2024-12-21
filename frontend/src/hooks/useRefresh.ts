@@ -30,6 +30,7 @@ const useRefresh = () => {
         ...prev,
         accessToken: foundUser.accessToken,
         isAdmin: foundUser.isAdmin,
+        id: foundUser.id,
       };
     });
 

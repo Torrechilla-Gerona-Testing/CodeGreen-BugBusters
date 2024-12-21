@@ -56,7 +56,7 @@ export interface DriverWithVandC {
 export interface Registration {
   id?: string;
   user_id?: string;
-  license_number?: string;
+  license_number: string;
   school_email?: string;
   driver_type?: "Select" | "Student" | "Faculty" | "Staff";
   first_name?: string;

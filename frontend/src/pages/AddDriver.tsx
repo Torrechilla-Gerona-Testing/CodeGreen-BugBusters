@@ -66,7 +66,7 @@ const AddDriver = () => {
       }, 5000);
     } catch (error) {
       setLoading(false);
-      console.error("Error submitting driver:", error);
+      toast.error((error as Error).message);
     }
   };
 

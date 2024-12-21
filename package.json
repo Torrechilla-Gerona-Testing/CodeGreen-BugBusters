@@ -9,7 +9,8 @@
     "backend": "cd backend && npm run dev",
     "frontend": "cd frontend && npm run dev",
     "allinstall": "npm install && cd frontend && npm install && cd ../backend && npm install",
-    "allupdate": "npm update && cd frontend && npm update && cd ../backend && npm update"
+    "allupdate": "npm update && cd frontend && npm update && cd ../backend && npm update",
+    "prettier-format": "prettier --config .prettierrc frontend/src/**/*.ts --write && prettier --config .prettierrc backend/src/**/*.ts --write"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +29,8 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.13.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.4.2",
     "typescript-eslint": "^8.17.0"
   }
 }

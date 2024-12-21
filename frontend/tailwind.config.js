@@ -12,7 +12,7 @@ export default {
         "2xl": "1536px",
       },
       fontSize: {
-        "2xxs": ["0.5rem", "0.8rem"],
+        "2xs": ["0.5rem", "0.8rem"],
         xxs: ["0.5rem", "0.75rem"],
         xxxs: ["0.4rem", "0.65rem"],
       },

@@ -19,12 +19,11 @@ const useAddViolation = () => {
         auth,
         "/violation/add",
         "POST",
-        formData
+        formData,
       );
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error response from server:", errorData); // Log server response
         toast.error(errorData.message);
         return;
       }
@@ -47,12 +46,3 @@ const useAddViolation = () => {
 };
 
 export default useAddViolation;
-
-// export interface Violation {
-//   id?: string;
-//   driver_id?: string;
-//   violation_type?: string;
-//   violation_date?: string;
-//   description?: string;
-//   paid_status?: boolean;
-// }

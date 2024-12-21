@@ -6,41 +6,38 @@ import { toast } from "react-toastify";
 
 export const useDeleteDriver = () => {
   const { auth, refresh, navigate } = useFetchWithAuthExports();
-  const { setAppLoading }: LoadingContextType = useLoading()
+  const { setAppLoading }: LoadingContextType = useLoading();
 
   const deleteDriver = async (driverId: string) => {
-    setAppLoading!(true)
+    setAppLoading!(true);
     try {
-      console.log("Sending delete request for driver ID:", driverId); // Log driverId
-
       const response = await fetchWithAuth(
         navigate,
         refresh,
         auth,
         "/driver/delete",
         "delete",
-        { id: driverId }
+        { id: driverId },
       );
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error response from server:", errorData); // Log server response
-        toast.error(errorData.message)
+        toast.error(errorData.message);
         return;
       }
 
-      const notificationAPI = await response.json()
+      const notificationAPI = await response.json();
 
-      toast.success(notificationAPI.message)
+      toast.success(notificationAPI.message);
 
       return;
     } catch (err: unknown) {
       // Narrow down `err` to ensure it has a `message` property
       const errorMessage =
         err instanceof Error ? err.message : "Failed to connect to the server";
-      toast.error(errorMessage)
+      toast.error(errorMessage);
     } finally {
-      setAppLoading!(false)
+      setAppLoading!(false);
     }
   };
 

@@ -18,7 +18,6 @@ const DriversList = () => {
   // Handle driver click to show more details
   const handleDriverClick = (driver: DriverWithVandC) => {
     setSelectedDriver(driver);
-    console.log(driver.id);
   };
 
   // Toggle sorting between alphabetical and default
@@ -72,7 +71,7 @@ const DriversList = () => {
                 <div className="flex lg:flex-row flex-col text-textgreen pb-3">
                   <div>
                     <h1 className="lg:text-4xl text-3xl font-syke-bold">
-                      Driver's List
+                      Drivers List
                     </h1>
                     <p className="lg:text-xl md:text-lg text-md font-syke-bold">
                       List of Drivers within the university.
@@ -87,7 +86,7 @@ const DriversList = () => {
                 </div>
               </div>
               <div
-                className="w-full h-[20rem] overflow-y-auto"
+                className="w-full h-80 overflow-y-auto"
                 id="listcontainer">
                 <div className="flex flex-col overflow-y-auto h-80 scrollbar-thin scrollbar text-white">
                   {sortedDrivers && sortedDrivers.length > 0 ? (

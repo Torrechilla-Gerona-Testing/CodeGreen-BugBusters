@@ -19,7 +19,7 @@ const useUser = () => {
           refresh,
           auth,
           "/user/get",
-          "get"
+          "get",
         );
         if (!response.ok) {
           const error: BackendMessage = await response.json();
@@ -27,10 +27,8 @@ const useUser = () => {
           return;
         }
         const user: UserType = await response.json();
-        console.log(user);
         setData(user);
-      } catch (err) {
-        console.error("Error fetching user:", err);
+      } catch {
         setError({ message: "An unexpected error occurred" } as BackendMessage);
       } finally {
         setLoading(false);

@@ -3,11 +3,11 @@ import { NextFunction, Request, Response } from "express";
 const validateDriver = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const validateEmail = (email: string) => {
     return email.match(
-      "[-a-zA-Z0-9~!$%^&amp;*_=+}{'?]+(.[-a-zA-Z0-9~!$%^&amp;*_=+}{'?]+)*@[a-zA-Z0-9_][-a-zA-Z0-9_]*(.[-a-zA-Z0-9_]+)*.[cC][oO][mM](:[0-9]{1,5})?"
+      "[-a-zA-Z0-9~!$%^&amp;*_=+}{'?]+(.[-a-zA-Z0-9~!$%^&amp;*_=+}{'?]+)*@[a-zA-Z0-9_][-a-zA-Z0-9_]*(.[-a-zA-Z0-9_]+)*.[cC][oO][mM](:[0-9]{1,5})?",
     );
   };
 
@@ -65,4 +65,3 @@ const validateDriver = (
 };
 
 export default validateDriver;
-    

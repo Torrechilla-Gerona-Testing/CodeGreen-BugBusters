@@ -19,7 +19,7 @@ const useGetDriver = (id: string) => {
           refresh,
           auth,
           auth?.isAdmin ? `/driver/get/${id}` : `/profile/get/${auth?.id}`,
-          "get"
+          "get",
         );
 
         if (response.status === 401) {
@@ -37,8 +37,7 @@ const useGetDriver = (id: string) => {
 
         const fetchedDriver = await response.json();
         setDriver(fetchedDriver);
-      } catch (error) {
-        console.log(error);
+      } catch {
         return {};
       } finally {
         setLoading(false);

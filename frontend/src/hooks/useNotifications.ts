@@ -18,7 +18,7 @@ const useNotifications = () => {
           refresh,
           auth,
           "/notification/get-by-user",
-          "get"
+          "get",
         );
 
         if (response.status === 404) {

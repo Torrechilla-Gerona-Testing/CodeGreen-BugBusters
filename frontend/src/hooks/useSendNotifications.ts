@@ -19,7 +19,7 @@ const useSendNotification = () => {
         auth,
         "/notification/add",
         "post",
-        formData
+        formData,
       );
 
       if (!response.ok) {

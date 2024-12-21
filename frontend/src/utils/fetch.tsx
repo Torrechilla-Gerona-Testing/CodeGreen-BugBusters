@@ -37,13 +37,11 @@ export const fetchWithAuth = async (
     body: body ? JSON.stringify(body) : null,
   });
 
-  console.log(response.status);
 
   if (response.status === 403) {
-    console.log(await response.json());
-    console.log(auth?.accessToken);
+  
     const newAccessToken = await refresh();
-    console.log("New Access Token: " + newAccessToken);
+
     const newResponse = await fetch(
       `${import.meta.env.VITE_SERVER_URL}${route}`,
       {
@@ -63,10 +61,8 @@ export const fetchWithAuth = async (
       throw new Error(backendError.title + ": " + backendError.message);
     }
 
-    console.log("NEW RESPONSE"); // SHOULD BE REMOVED
     return newResponse;
   }
 
-  console.log("OLD RESPONSE"); // SHOULD BE REMOVED
   return response;
 };

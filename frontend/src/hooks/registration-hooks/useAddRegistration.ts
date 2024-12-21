@@ -19,7 +19,7 @@ export const useAddRegistration = () => {
         auth,
         "/registration/add",
         "POST",
-        formData
+        formData,
       );
 
       if (!response.ok) {

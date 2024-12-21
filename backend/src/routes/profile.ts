@@ -9,7 +9,7 @@ router.get("/get/:id", async (req: Request, res: Response) => {
 
     const { rows: drivers } = await pool.query(
       "SELECT * FROM drivers WHERE user_id = $1",
-      [id]
+      [id],
     );
 
     const foundDriver = await drivers[0];
@@ -21,20 +21,18 @@ router.get("/get/:id", async (req: Request, res: Response) => {
 
     const { rows: violations } = await pool.query(
       "SELECT * FROM violations WHERE driver_id = $1",
-      [foundDriver.id]
+      [foundDriver.id],
     );
 
     const { rows: cars } = await pool.query(
       "SELECT * FROM cars WHERE driver_id = $1",
-      [foundDriver.id]
+      [foundDriver.id],
     );
 
     res.status(200).json({ ...foundDriver, violations, cars });
-  } catch (error) {
-    console.log(error);
+  } catch {
     res.sendStatus(500);
   }
 });
-
 
 export default router;

@@ -16,13 +16,11 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const payload = jwt.verify(
       token,
-      process.env.ACCESS_TOKEN_SECRET!
+      process.env.ACCESS_TOKEN_SECRET!,
     ) as JwtPayload;
     req.user = payload.userId;
   } catch (error) {
-    res
-      .status(403)
-      .json({ title: "Token Invalid", message: error });
+    res.status(403).json({ title: "Token Invalid", message: error });
     return;
   }
   next();

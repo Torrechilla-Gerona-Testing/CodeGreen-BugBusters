@@ -4,35 +4,6 @@ import { Violation } from "../types/datatypes";
 
 const router = express();
 
-// router.post("/check-license", async (req: Request, res: Response) => {
-//   try {
-//     const { license_number } = req.body;
-
-//     const { rows: drivers } = await pool.query(
-//       `SELECT id
-//           FROM drivers
-//           WHERE license_number = $1`,
-//       [license_number]
-//     );
-
-//     const driverFound = drivers[0];
-//     console.log(drivers);
-
-//     if (!driverFound) {
-//       res.status(401).json({
-//         title: "License Number Not Found",
-//         message: "Driver with this license number does not exist.",
-//       });
-//       return;
-//     }
-
-//     res.status(200).json(driverFound);
-//   } catch (error) {
-//     console.log(error);
-//     res.sendStatus(500);
-//   }
-// });
-
 router.post("/add", async (req: Request, res: Response) => {
   try {
     const {
@@ -46,7 +17,7 @@ router.post("/add", async (req: Request, res: Response) => {
       `SELECT *
         FROM drivers
         WHERE id = $1`,
-      [driver_id]
+      [driver_id],
     );
 
     const driverFound = await drivers[0];
@@ -58,10 +29,7 @@ router.post("/add", async (req: Request, res: Response) => {
       return;
     }
 
-    console.log("THIS IS THE DRIVER FROM VIOLATION");
-    console.log(driverFound);
-
-    const violations = await pool.query(
+    await pool.query(
       `INSERT INTO violations (
           driver_id,
           violation_type,
@@ -69,10 +37,8 @@ router.post("/add", async (req: Request, res: Response) => {
           description
           )
           VALUES($1, $2, $3, $4)`,
-      [driver_id, violation_type, violation_date, description]
+      [driver_id, violation_type, violation_date, description],
     );
-
-    console.log(violations.rows[0]);
 
     res.status(200).json({
       title: "Violation Added!",
@@ -80,7 +46,6 @@ router.post("/add", async (req: Request, res: Response) => {
     });
   } catch (error) {
     const errorMessage = (error as Error).message;
-    console.error("Error:", errorMessage);
     res.status(500).json({ title: "Error", message: errorMessage });
   }
 });
@@ -117,9 +82,6 @@ router.patch("/update", async (req: Request, res: Response) => {
     return;
   }
 
-  const updateViolation = result.rows[0];
-  console.log("Violations updated successfully:", updateViolation);
-
   res.status(200).json({
     title: "Violation Updated!",
     message: `Violation has been updated successfully.`,
@@ -128,8 +90,6 @@ router.patch("/update", async (req: Request, res: Response) => {
 
 router.delete("/delete", async (req: Request, res: Response) => {
   try {
-    console.log("Fetching. . .");
-
     const { violationId } = req.body;
 
     const violations = await pool.query(
@@ -138,7 +98,7 @@ router.delete("/delete", async (req: Request, res: Response) => {
             WHERE 
             id = $1 
             RETURNING *`,
-      [violationId]
+      [violationId],
     );
 
     if (violations.rowCount === 0) {
@@ -153,7 +113,8 @@ router.delete("/delete", async (req: Request, res: Response) => {
       message: "Violation Deleted Successfully.",
     });
   } catch (error) {
-    console.log(error);
+    const errorMessage = (error as Error).message;
+    res.status(500).json({ title: "Unknown Error", message: errorMessage });
   }
 });
 

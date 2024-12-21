@@ -17,11 +17,9 @@ const ViolatorList = () => {
   const [originalViolators, setOriginalViolators] = useState<DriverWithVandC[]>(
     []
   ); // Stores the original list
-  console.log(sortedViolators);
 
   const handleViolatorsClick = (violator: Violators) => {
     setSelectedViolator(violator);
-    console.log(violator.id);
   };
 
   // Toggle sorting between alphabetical and default
@@ -55,25 +53,29 @@ const ViolatorList = () => {
       <div>
         <AdminHeader />
       </div>
-      <div className="w-[75rem] h-auto bg-gray-400 rounded-lg bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
-        <div className="max-w-full max-h-full flex justify-center items-center">
-          <div className="w-[35rem] p-3 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
+      <div className="flex justify-center items-center w-10/12 h-auto bg-gray-400 rounded-lg bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 md:p-6 p-3">
+        <div className="flex md:flex-row flex-col-reverse w-full justify-center items-center">
+          <div className="w-full bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
             {selectedViolator ? (
               <PreviewProfile selectedEntry={selectedViolator} />
             ) : (
-              <div className="text-white text-center font-syke p-2">
+              <div className="text-white text-center font-syke p-4">
                 Select a violator to see details.
               </div>
             )}
           </div>
 
-          <div className="w-[50%] h-full p-6 rounded-md">
-            <div className="text-left rounded-xl bg-clip-padding">
+          <div className="flex w-full h-full md:pl-6 pb-6 rounded-md">
+            <div className="text-left w-full rounded-xl bg-clip-padding">
               <div className="text-left font-syke-light text-white">
-                <div className="text-textgreen py-3 flex justify-between items-center">
+                <div className="flex lg:flex-row flex-col text-textgreen pb-3">
                   <div>
-                    <h1 className="text-4xl font-syke-bold">Violator's List</h1>
-                    <div>List of Violators within the university.</div>
+                    <h1 className="lg:text-4xl text-3xl font-syke-bold">
+                      Violators List
+                    </h1>
+                    <p className="lg:text-xl md:text-lg text-md font-syke-bold">
+                      List of Violators within the university.
+                    </p>
                   </div>
                   <SearchAndSort
                     entries={violators}
@@ -84,7 +86,7 @@ const ViolatorList = () => {
                 </div>
               </div>
               <div
-                className="w-full h-[20rem] overflow-y-auto"
+                className="w-full h-80 overflow-y-auto"
                 id="listcontainer">
                 <div className="flex flex-col overflow-y-auto h-80 scrollbar-thin scrollbar text-white">
                   {sortedViolators && sortedViolators.length > 0 ? (

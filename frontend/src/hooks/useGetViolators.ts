@@ -19,7 +19,7 @@ const useGetViolators = () => {
           refresh,
           auth,
           "/violator/get",
-          "get"
+          "get",
         );
 
         if (!response.ok) {

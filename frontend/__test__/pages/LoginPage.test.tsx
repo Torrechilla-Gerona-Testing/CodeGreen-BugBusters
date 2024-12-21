@@ -2,17 +2,16 @@ import React from "react";
 import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
 import LoginPage from "../../src/pages/LoginPage";
 import { fireEvent, render, screen } from "@testing-library/react";
-import '@testing-library/jest-dom';
-import { BrowserRouter} from "react-router-dom";
+import "@testing-library/jest-dom";
+import { BrowserRouter } from "react-router-dom";
 import useLogin from "../../src/hooks/useLogin";
-import RegisterDriver from "../../src/pages/RegisterDriver"
+import RegisterDriver from "../../src/pages/RegisterDriver";
 import useUser from "../../src/hooks/useUser";
-import Homepage from "../../src/pages/HomePage"
+import Homepage from "../../src/pages/HomePage";
 import useAddRegistration from "../../src/hooks/registration-hooks/useAddRegistration";
 
-vi.mock("../../src/hooks/useLogin")
+vi.mock("../../src/hooks/useLogin");
 describe("registered user login, register as a driver", () => {
-
   beforeEach(() => {
     vi.clearAllMocks();
     (useLogin as Mock).mockReturnValue({
@@ -33,9 +32,7 @@ describe("registered user login, register as a driver", () => {
   it("should verify the input of email and password", async () => {
     render(<LoginPage />, { wrapper: BrowserRouter });
 
-    const emailInput = await screen.findByPlaceholderText(
-      "Email address"
-    );
+    const emailInput = await screen.findByPlaceholderText("Email address");
     const passwordInput = await screen.findByPlaceholderText(
       "Enter your password"
     );
@@ -69,8 +66,12 @@ describe("registered user login, register as a driver", () => {
     fireEvent.change(emailInput, { target: { value: "a".repeat(60) } });
     fireEvent.change(passwordInput, { target: { value: "b".repeat(30) } });
 
-    expect((emailInput as HTMLInputElement).value.length).toBeLessThanOrEqual(maxLengthEmail);
-    expect((passwordInput as HTMLInputElement).value.length).toBeLessThanOrEqual(maxLengthPassword);
+    expect((emailInput as HTMLInputElement).value.length).toBeLessThanOrEqual(
+      maxLengthEmail
+    );
+    expect(
+      (passwordInput as HTMLInputElement).value.length
+    ).toBeLessThanOrEqual(maxLengthPassword);
   });
 
   it("should validate the email format", async () => {
@@ -137,8 +138,8 @@ describe("User should be able to register", () => {
     expect(screen.getByPlaceholderText("Enter license number")).toBeDefined();
     expect(screen.getByPlaceholderText("Enter school email")).toBeDefined();
 
-    expect(screen.getByTitle("birthdate_register")).toBeDefined();  
-    expect(screen.getByTitle("sex")).toBeDefined();  
+    expect(screen.getByTitle("birthdate_register")).toBeDefined();
+    expect(screen.getByTitle("sex")).toBeDefined();
     expect(screen.getByTitle("driver_type")).toBeDefined();
   });
 
@@ -154,7 +155,6 @@ describe("User should be able to register", () => {
     expect(confirmButton).not.toBeDisabled();
   });
 
-
   it("should show loading spinner while submitting the form", () => {
     (useAddRegistration as Mock).mockReturnValueOnce({
       postRegistration: mockPostRegistration,
@@ -166,4 +166,3 @@ describe("User should be able to register", () => {
     expect(screen.getByText(/Adding Registration.../i)).toBeDefined();
   });
 });
-

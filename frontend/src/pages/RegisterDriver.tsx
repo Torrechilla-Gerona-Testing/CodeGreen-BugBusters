@@ -7,7 +7,6 @@ import { useAddRegistration } from "../hooks/registration-hooks/useAddRegistrati
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-
 const RegisterDriver = () => {
   const { postRegistration, loading } = useAddRegistration();
   const [successMessage] = useState("");
@@ -100,11 +99,10 @@ const RegisterDriver = () => {
 
     try {
       await postRegistration(formData); // Send the form data to the backend
-      console.log(formData)
       const isValid = validateForm(); // Validate the form
       if (isValid) navigate("/homepage"); // Redirect to the homepage
     } catch (error) {
-      console.error("Error submitting the form:", error);
+      toast.error((error as Error).message);
     }
   };
   const handleChange = (
@@ -140,75 +138,73 @@ const RegisterDriver = () => {
               Please enter your information
             </h1>
 
-              <div className="bg- w-[40rem] h-auto mt-4">
-                <form className="space-y-2">
-                  <div className="flex space-x-4">
-                    <div className="flex-1">
-                      <h1 className="text-white font-syke-light text-l">
-                        Last Name
-                      </h1>
-                      <input
-                        type="text"
-                        data-testid="last_name_register"
-                        placeholder="Enter Last Name"
-                        value={formData.last_name}
-                        onChange={(e) => {
-                          if (e.target.value.length <= 20) {
-                            handleChange(e);
-                          }
-                        }}                           
-                        className={`w-full px-4 py-2 mt-1 border rounded-sm bg-secondgrey text-white focus:outline-none focus:ring-0 active:outline-none ${
-                          formErrors.last_name
-                            ? "border-red-800"
-                            : "border-none"
-                        }`}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h1 className="text-white font-syke-light text-l">
-                        Middle Name
-                      </h1>
-                      <input
-                        data-testid="middle_name_register"
-                        type="text"
-                        className={`w-full px-4 py-2 mt-1 border rounded-sm bg-secondgrey text-white focus:outline-none focus:ring-0 active:outline-none ${
-                          formErrors.middle_name
-                          ? "border-red-800"
-                          : "border-none"
-                        }`}
-                        name="middle_name"
-                        value={formData.middle_name}
-                        onChange={(e) => {
-                          if (e.target.value.length <= 20) {
-                            handleChange(e);
-                          }
-                        }}                         
-                        placeholder="Optional"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h1 className="text-white font-syke-light text-l">
-                        First Name
-                      </h1>
-                      <input
-                        placeholder="Enter First Name"
-                        type="text"
-                        data-testid="first_name_register"
-                        className={`w-full px-4 py-2 mt-1 border rounded-sm bg-secondgrey text-white focus:outline-none focus:ring-0 active:outline-none ${
-                          formErrors.first_name
-                          ? "border-red-800"
-                          : "border-none"
-                        }`}                     
-                        value={formData.first_name}
-                        onChange={(e) => {
-                          if (e.target.value.length <= 20) {
-                            handleChange(e);
-                          }
-                        }}                         
-                        required
-                      />
-                    </div>
+            <div className="bg- w-[40rem] h-auto mt-4">
+              <form className="space-y-2">
+                <div className="flex space-x-4">
+                  <div className="flex-1">
+                    <h1 className="text-white font-syke-light text-l">
+                      Last Name
+                    </h1>
+                    <input
+                      type="text"
+                      data-testid="last_name_register"
+                      name="last_name"
+                      placeholder="Enter Last Name"
+                      value={formData.last_name}
+                      onChange={(e) => {
+                        if (e.target.value.length <= 20) {
+                          handleChange(e);
+                        }
+                      }}
+                      className={`w-full px-4 py-2 mt-1 border rounded-sm bg-secondgrey text-white focus:outline-none focus:ring-0 active:outline-none ${
+                        formErrors.last_name ? "border-red-800" : "border-none"
+                      }`}
+                    />
                   </div>
+                  <div className="flex-1">
+                    <h1 className="text-white font-syke-light text-l">
+                      Middle Name
+                    </h1>
+                    <input
+                      data-testid="middle_name_register"
+                      type="text"
+                      className={`w-full px-4 py-2 mt-1 border rounded-sm bg-secondgrey text-white focus:outline-none focus:ring-0 active:outline-none ${
+                        formErrors.middle_name
+                          ? "border-red-800"
+                          : "border-none"
+                      }`}
+                      name="middle_name"
+                      value={formData.middle_name}
+                      onChange={(e) => {
+                        if (e.target.value.length <= 20) {
+                          handleChange(e);
+                        }
+                      }}
+                      placeholder="Optional"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <h1 className="text-white font-syke-light text-l">
+                      First Name
+                    </h1>
+                    <input
+                      placeholder="Enter First Name"
+                      type="text"
+                      name="first_name"
+                      data-testid="first_name_register"
+                      className={`w-full px-4 py-2 mt-1 border rounded-sm bg-secondgrey text-white focus:outline-none focus:ring-0 active:outline-none ${
+                        formErrors.first_name ? "border-red-800" : "border-none"
+                      }`}
+                      value={formData.first_name}
+                      onChange={(e) => {
+                        if (e.target.value.length <= 20) {
+                          handleChange(e);
+                        }
+                      }}
+                      required
+                    />
+                  </div>
+                </div>
 
                 <div className="flex space-x-4">
                   <div className="flex-1">
@@ -281,18 +277,18 @@ const RegisterDriver = () => {
                         formErrors.license_number
                           ? "border-red-800"
                           : "border-none"
-                        }`}                          
-                        name="license_number"
-                        value={formData.license_number}
-                        onChange={(e) => {
-                          if (e.target.value.length <= 20) {
-                            handleChange(e);
-                          }
-                        }}                         
-                        placeholder="Enter license number"
-                        required
-                      />
-                    </div>
+                      }`}
+                      name="license_number"
+                      value={formData.license_number}
+                      onChange={(e) => {
+                        if (e.target.value.length <= 20) {
+                          handleChange(e);
+                        }
+                      }}
+                      placeholder="Enter license number"
+                      required
+                    />
+                  </div>
 
                   <div className="flex-1">
                     <h1 className="text-white font-syke-light text-l">
@@ -304,21 +300,21 @@ const RegisterDriver = () => {
                         formErrors.school_email
                           ? "border-red-800"
                           : "border-none"
-                        }`}                          
-                        name="school_email"
-                        value={formData.school_email}
-                        onChange={(e) => {
-                          if (e.target.value.length <= 50) {
-                            handleChange(e);
-                          }
-                        }}                           
-                        placeholder="Enter school email"
-                        pattern="[\-a-zA-Z0-9~!$%^&amp;*_=+\}\{'?]+(\.[\-a-zA-Z0-9~!$%^&amp;*_=+\}\{'?]+)*@[a-zA-Z0-9_][\-a-zA-Z0-9_]*(\.[\-a-zA-Z0-9_]+)*\.[cC][oO][mM](:[0-9]{1,5})?"
-                        required
-                      />
-                    </div>
+                      }`}
+                      name="school_email"
+                      value={formData.school_email}
+                      onChange={(e) => {
+                        if (e.target.value.length <= 50) {
+                          handleChange(e);
+                        }
+                      }}
+                      placeholder="Enter school email"
+                      pattern="[\-a-zA-Z0-9~!$%^&amp;*_=+\}\{'?]+(\.[\-a-zA-Z0-9~!$%^&amp;*_=+\}\{'?]+)*@[a-zA-Z0-9_][\-a-zA-Z0-9_]*(\.[\-a-zA-Z0-9_]+)*\.[cC][oO][mM](:[0-9]{1,5})?"
+                      required
+                    />
                   </div>
-                </form>
+                </div>
+              </form>
 
               <div className="flex items-center mt-4">
                 <input

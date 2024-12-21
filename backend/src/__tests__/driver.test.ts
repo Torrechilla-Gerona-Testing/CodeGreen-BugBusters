@@ -139,7 +139,7 @@ describe("Drivers API", () => {
 
       expect(response.status).toBe(200);
       expect(response.body.message).toBe(
-        "Successfully updated Driver: John Doe."
+        "Successfully updated Driver: John Doe.",
       );
     });
 

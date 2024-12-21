@@ -18,7 +18,7 @@ router.post("/add", validateDriver, async (req: Request, res: Response) => {
       license_expiration_date,
     } = req.body as Driver;
 
-    const driver = await pool.query(
+    await pool.query(
       `INSERT INTO drivers (
         email, 
         first_name, 
@@ -41,10 +41,9 @@ router.post("/add", validateDriver, async (req: Request, res: Response) => {
         driver_type,
         license_number,
         license_expiration_date,
-      ]
+      ],
     );
 
-    console.log(driver.rows);
     res.status(200).json({
       title: "Driver Added!",
       message: `Driver ${last_name}, ${first_name} ${middle_name} has been added`,
@@ -59,19 +58,15 @@ router.post("/add", validateDriver, async (req: Request, res: Response) => {
 
 router.get("/get", async (req: Request, res: Response) => {
   try {
-    console.log("Fetching drivers from the database...");
-
     const { rows: drivers } = await pool.query(
       `SELECT *
-        FROM drivers`
+        FROM drivers`,
     );
-    console.log("Drivers fetched successfully:", drivers);
 
     // Send the drivers list as a response
     res.json(drivers);
   } catch (error) {
     const errorMessage = (error as Error).message;
-    console.error("Error fetching drivers:", errorMessage); // Log the error for debugging
     res.status(500).json({ title: "Unknown Error", message: errorMessage });
   }
 });
@@ -82,7 +77,7 @@ router.get("/get/:driverId", async (req: Request, res: Response) => {
 
     const { rows: users } = await pool.query(
       "SELECT * FROM users WHERE id = $1",
-      [req.user]
+      [req.user],
     );
 
     const foundUser = users[0];
@@ -97,11 +92,10 @@ router.get("/get/:driverId", async (req: Request, res: Response) => {
 
     const { rows: drivers } = await pool.query(
       "SELECT * FROM drivers WHERE id = $1",
-      [driverId]
+      [driverId],
     );
 
     const foundDriver = await drivers[0];
-    console.log(foundDriver);
 
     if (!foundDriver) {
       res.status(404).json({ message: "Driver not found" });
@@ -110,12 +104,12 @@ router.get("/get/:driverId", async (req: Request, res: Response) => {
 
     const { rows: violations } = await pool.query(
       "SELECT * FROM violations WHERE driver_id = $1",
-      [foundDriver.id]
+      [foundDriver.id],
     );
 
     const { rows: cars } = await pool.query(
       "SELECT * FROM cars WHERE driver_id = $1",
-      [foundDriver.id]
+      [foundDriver.id],
     );
 
     res.status(200).json({ ...foundDriver, violations, cars });
@@ -180,7 +174,7 @@ router.patch("/update", async (req: Request, res: Response) => {
         driver_type,
         license_expiration_date,
         id,
-      ]
+      ],
     );
 
     res.status(200).json({
@@ -193,12 +187,10 @@ router.patch("/update", async (req: Request, res: Response) => {
 });
 
 router.delete("/delete", async (req: Request, res: Response) => {
-  console.log("Request body:", req.body); // Log the incoming request body
   try {
     const { id } = req.body;
 
     if (!id) {
-      console.error("No ID provided in the request body");
       res.status(400).json({
         title: "Validation Error",
         message: "Driver ID is required to delete a record.",
@@ -212,11 +204,10 @@ router.delete("/delete", async (req: Request, res: Response) => {
 
     const resultDriver = await pool.query(
       `DELETE FROM drivers WHERE id = $1 RETURNING *`,
-      [id]
+      [id],
     );
 
     if (resultDriver.rowCount === 0) {
-      console.error("Driver not found in the database");
       res.status(404).json({
         title: "Not Found",
         message: "Driver with the specified ID does not exist.",
@@ -225,7 +216,6 @@ router.delete("/delete", async (req: Request, res: Response) => {
     }
 
     const deletedDriver = resultDriver.rows[0];
-    console.log("Driver deleted successfully:", deletedDriver);
 
     res.status(200).json({
       title: "Driver Deleted",

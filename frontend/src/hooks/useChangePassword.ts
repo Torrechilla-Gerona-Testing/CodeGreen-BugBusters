@@ -20,7 +20,7 @@ const useChangePassword = () => {
         auth,
         "/user/change-password",
         "patch",
-        data
+        data,
       );
 
       if (!response.ok) {
