@@ -2,13 +2,15 @@ import { useDeleteViolation } from "../hooks/violation-hooks/useDeleteViolation"
 import { useState, useRef, useEffect } from "react";
 import { Violation } from "../types/datatypes";
 import { useEditViolation } from "../hooks/violation-hooks/useEditViolation";
+import useUpdateStatus from "../hooks/useUpdateStatus";
 
 const ViolationCard = ({ violation }: { violation: Violation }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedViolation, setEditedViolation] = useState<Violation>(violation);
   const { deleteViolation } = useDeleteViolation();
-  const { updateViolation } = useEditViolation()
+  const { updateViolation } = useEditViolation();
+  const { handleUpdateStatus } = useUpdateStatus();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const date = new Date(violation.violation_date!);
   const year = date.getFullYear();
@@ -33,22 +35,28 @@ const ViolationCard = ({ violation }: { violation: Violation }) => {
     }
   };
 
+  const handleStatusClick = async () => {
+    await handleUpdateStatus(violation.id!);
+  };
+
   const handleEditViolation = () => {
     updateViolation(editedViolation);
     setIsEditing(false);
     setIsMenuOpen(false);
   };
 
-  const handleCancelEdit = () => { 
-    if (isEditing){ 
+  const handleCancelEdit = () => {
+    if (isEditing) {
       setIsEditing(false);
-      setIsMenuOpen(false)
+      setIsMenuOpen(false);
     }
-  }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
       ) {
         setIsMenuOpen(false);
       }
@@ -68,8 +76,8 @@ const ViolationCard = ({ violation }: { violation: Violation }) => {
             <h1 className="text-white font-syke-light lg:text-lg md:text-md text-sm">
               Violation
             </h1>
-          {isEditing ? (
-            <input
+            {isEditing ? (
+              <input
                 type="text"
                 name="violation_type"
                 value={editedViolation.violation_type}
@@ -77,10 +85,10 @@ const ViolationCard = ({ violation }: { violation: Violation }) => {
                 className="text-input"
               />
             ) : (
-            <h1 className="text-textgreen font-syke-medium lg:text-xl md:text-lg text-md">
-              {violation.violation_type}
-            </h1>
-          )}
+              <h1 className="text-textgreen font-syke-medium lg:text-xl md:text-lg text-md">
+                {violation.violation_type}
+              </h1>
+            )}
           </div>
 
           <div className="flex-1">
@@ -88,7 +96,7 @@ const ViolationCard = ({ violation }: { violation: Violation }) => {
               Date of Violation
             </h1>
             {isEditing ? (
-            <input
+              <input
                 type="date"
                 name="violation_date"
                 value={editedViolation.violation_date}
@@ -96,20 +104,18 @@ const ViolationCard = ({ violation }: { violation: Violation }) => {
                 className="date-input"
               />
             ) : (
-            <h1 className="text-textgreen font-syke-medium lg:text-xl md:text-lg text-md">
-              {year}/{month}/{day}
-            </h1>
-          )}
+              <h1 className="text-textgreen font-syke-medium lg:text-xl md:text-lg text-md">
+                {year}/{month}/{day}
+              </h1>
+            )}
           </div>
         </div>
 
         <div className="flex space-x-4">
           <div className="flex-1">
-            <h1 className="text-white font-syke">
-              Description
-            </h1>
+            <h1 className="text-white font-syke">Description</h1>
             {isEditing ? (
-            <input
+              <input
                 type="text"
                 name="description"
                 value={editedViolation.description}
@@ -117,19 +123,22 @@ const ViolationCard = ({ violation }: { violation: Violation }) => {
                 className="text-input"
               />
             ) : (
-            <h1 className="text-textgreen font-syke lg:text-lg md:text-md text-sm lg:w-lg md:w-md w-sm break-normal">
-              {violation.description}
-            </h1>
-          )}
+              <h1 className="text-textgreen font-syke lg:text-lg md:text-md text-sm lg:w-lg md:w-md w-sm break-normal">
+                {violation.description}
+              </h1>
+            )}
           </div>
 
           <div className="flex-1">
             <h1 className="text-white font-syke-light lg:text-lg md:text-md text-sm">
               Status
             </h1>
-            <h1 className="text-textgreen font-syke-medium lg:text-xl md:text-lg text-md">
+            <span
+              onClick={handleStatusClick}
+              className="text-textgreen hover:text-blue-200 font-syke-medium lg:text-xl md:text-lg text-md"
+            >
               {violation.paid_status ? "Paid" : "Unpaid"}
-            </h1>
+            </span>
           </div>
         </div>
       </div>

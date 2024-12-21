@@ -118,4 +118,38 @@ router.delete("/delete", async (req: Request, res: Response) => {
   }
 });
 
+router.patch("/status-change", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.body;
+    const { rows: violations } = await pool.query(
+      `SELECT * FROM violations WHERE id = $1`,
+      [id],
+    );
+
+    const foundViolation = await violations[0];
+
+    if (!foundViolation) {
+      res.status(404).json({ message: "Violation cannot be found." });
+      return;
+    }
+
+    const updated = await pool.query(
+      `UPDATE violations SET paid_status = $1 WHERE id = $2 RETURNING *`,
+      [!foundViolation.paid_status, id],
+    );
+
+    if (updated.rowCount === 0) {
+      res.status(400).json({ message: "Update is not successful." });
+      return;
+    }
+
+    res
+      .status(200)
+      .json({ message: "Violation paid status has been updated." });
+  } catch (error) {
+    const errorMessage = (error as Error).message;
+    res.status(500).json({ title: "Unknown Error", message: errorMessage });
+  }
+});
+
 export default router;

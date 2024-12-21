@@ -50,7 +50,7 @@ const AdminLandingPage = () => {
             Encode
           </button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 font-syke-medium lg:text-3xl md:text-2xl text-xl gap-5 w-full max-w-4xl">
+        <div className="grid grid-cols-1 lg:grid-cols-3 font-syke-medium lg:text-3xl md:text-2xl text-xl gap-5 w-full max-w-4xl">
           <button
             className="transition-transform duration-300 hover:scale-105 text-white px-5 py-4 rounded-md bg-buttongreen active:bg-colorhover font-syke-medium"
             onClick={handleAddDriverButton}
