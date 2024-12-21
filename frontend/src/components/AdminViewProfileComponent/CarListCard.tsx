@@ -59,8 +59,8 @@ const CarListCard = ({ car }: { car: Car }) => {
     <ul className="border-b-2 border-t-2 border-t-transparent border-b-inputfield space-y-[10px] relative">
       <div className="ml-2 space-y-3 p-3">
         <div className="flex space-x-4">
-          <div className="flex-1">
-            <h1 className="text-white font-syke-light lg:text-xl md:text-lg text-md">License Number:</h1>
+          <div className="flex-1 lg:text-xl md:text-lg text-md">
+            <h1 className="text-white font-syke-light ">License Number:</h1>
             {isEditing ? (
               <input
                 type="text"

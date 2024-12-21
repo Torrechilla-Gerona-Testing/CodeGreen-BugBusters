@@ -140,7 +140,7 @@ const ViolationCard = ({ violation }: { violation: Violation }) => {
             </h1>
             <span
               onClick={handleStatusClick}
-              className="text-textgreen hover:text-blue-200 font-syke-medium lg:text-xl md:text-lg text-md"
+              className="text-textgreen hover:text-blue-200 hover:cursor-pointer font-syke-medium lg:text-xl md:text-lg text-md"
             >
               {violation.paid_status ? "Paid" : "Unpaid"}
             </span>

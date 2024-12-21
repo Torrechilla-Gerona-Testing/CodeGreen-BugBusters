@@ -82,8 +82,8 @@ const AddDriver = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-adminlanding-bg bg-cover bg-no-repeat sm:bg-top md:bg-right lg:bg-left h-screen">
-      <div>
+    <div className="flex flex-col items-center bg-adminlanding-bg bg-cover bg-no-repeat sm:bg-top md:bg-right lg:bg-left w-screen h-screen">
+      <div className="w-full">
         <AdminHeader />
         {loading && <Adding text="Adding Driver..."/>}
         {successMessage && <Success text="Driver Successfully Added"/>}
