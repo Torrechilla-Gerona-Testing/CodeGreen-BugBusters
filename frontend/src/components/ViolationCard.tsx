@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import { Violation } from "../types/datatypes";
 import { useEditViolation } from "../hooks/violation-hooks/useEditViolation";
 import useUpdateStatus from "../hooks/useUpdateStatus";
+import useAuth from "../hooks/context-hooks/useAuth";
+import { AuthContextType } from "../types/user.types";
 
 const ViolationCard = ({ violation }: { violation: Violation }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,6 +13,7 @@ const ViolationCard = ({ violation }: { violation: Violation }) => {
   const { deleteViolation } = useDeleteViolation();
   const { updateViolation } = useEditViolation();
   const { handleUpdateStatus } = useUpdateStatus();
+  const { auth }: AuthContextType = useAuth();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const date = new Date(violation.violation_date!);
   const year = date.getFullYear();
@@ -36,7 +39,9 @@ const ViolationCard = ({ violation }: { violation: Violation }) => {
   };
 
   const handleStatusClick = async () => {
-    await handleUpdateStatus(violation.id!);
+    if (auth?.isAdmin) {
+      await handleUpdateStatus(violation.id!);
+    }
   };
 
   const handleEditViolation = () => {

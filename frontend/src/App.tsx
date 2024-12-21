@@ -20,8 +20,8 @@ import RegisterDriver from "./pages/RegisterDriver.tsx";
 import SendNotif from "./pages/SendNotif.tsx";
 
 import ViewProfile from "./pages/ViewProfile.tsx";
-import Protocols from "./components/Policies/protocols.tsx";
-import Rules from "./components/Policies/rules.tsx";
+import Protocols from "./pages/Policies/Protocols.tsx";
+import Rules from "./pages/Policies/Rules.tsx";
 import ChangePassword from "./pages/ChangePassword.tsx";
 
 import RequireAuth from "./components/RequireAuth.tsx";
@@ -42,99 +42,37 @@ const Main = () => {
     <BrowserRouter>
       <Routes>
         {/* PUBLIC ROUTES */}
-        <Route
-          path="/"
-          element={
-            <Navigate
-              to="/login"
-              replace
-            />
-          }
-        />
-        <Route
-          path="/login"
-          element={<LoginPage />}
-        />
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<LoginPage />} />
 
-        <Route
-          path="/signup"
-          element={<SignUpPage />}
-        />
+        <Route path="/signup" element={<SignUpPage />} />
 
-        <Route
-          path="/unauthorized"
-          element={<UnauthorizedPage />}
-        />
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
         <Route element={<PersistLogin />}>
           {/* FOR ALL LOGGED IN */}
-          <Route
-            path="/view-profile/:driverId"
-            element={<ViewProfile />}
-          />
-          <Route
-            path="/changepassword"
-            element={<ChangePassword />}
-          />
+          <Route path="/view-profile/:driverId" element={<ViewProfile />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
 
           {/* USER ROUTES */}
           <Route element={<RequireAuth forAdmin={false} />}>
-            <Route
-              path="/homepage"
-              element={<HomePage />}
-            />
-            <Route
-              path="/about"
-              element={<AboutPage />}
-            />
-            <Route
-              path="/register-driver"
-              element={<RegisterDriver />}
-            />
-            <Route
-              path="/protocols"
-              element={<Protocols />}
-            />
-            <Route
-              path="/rules"
-              element={<Rules />}
-            />
+            <Route path="/homepage" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/register-driver" element={<RegisterDriver />} />
+            <Route path="/protocols" element={<Protocols />} />
+            <Route path="/rules" element={<Rules />} />
           </Route>
 
           {/* ADMIN ROUTES */}
           <Route element={<RequireAuth forAdmin={true} />}>
-            <Route
-              path="/admin"
-              element={<AdminLandingPage />}
-            />
-            <Route
-              path="/driverslist"
-              element={<DriversList />}
-            />
-            <Route
-              path="/encode"
-              element={<EncodePage />}
-            />
-            <Route
-              path="/add-driver"
-              element={<AddDriver />}
-            />
-            <Route
-              path="/add-violation"
-              element={<AddViolationPage />}
-            />
-            <Route
-              path="/violatorslist"
-              element={<ViolatorList />}
-            />
-            <Route
-              path="/registration-list"
-              element={<RegistrationList />}
-            />
-            <Route
-              path="/send-notif/:id"
-              element={<SendNotif />}
-            />
+            <Route path="/admin" element={<AdminLandingPage />} />
+            <Route path="/driverslist" element={<DriversList />} />
+            <Route path="/encode" element={<EncodePage />} />
+            <Route path="/add-driver" element={<AddDriver />} />
+            <Route path="/add-violation" element={<AddViolationPage />} />
+            <Route path="/violatorslist" element={<ViolatorList />} />
+            <Route path="/registration-list" element={<RegistrationList />} />
+            <Route path="/send-notif/:id" element={<SendNotif />} />
           </Route>
         </Route>
       </Routes>

@@ -74,8 +74,7 @@ const HomePage = () => {
 
             <p className="text-sm sm:text-base leading-relaxed">
               Please allow <b className="text-buttongreen">3-5</b> working days
-              for the validation process to complete. Once verified, you will
-              receive a notification.
+              for the validation process to complete.
             </p>
 
             <div className="mt-4">
