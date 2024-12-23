@@ -51,9 +51,6 @@ const Main = () => {
 
         <Route path="/signup" element={<SignUpPage />} />
 
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/protocols" element={<Protocols />} />
-        <Route path="/rules" element={<Rules />} />
 
         <Route path="/outabout" element={<About />} />
         <Route path="/outprotocols" element={<Protocol />} />
@@ -70,7 +67,9 @@ const Main = () => {
           <Route element={<RequireAuth forAdmin={false} />}>
             <Route path="/homepage" element={<HomePage />} />
             <Route path="/register-driver" element={<RegisterDriver />} />
-     
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/protocols" element={<Protocols />} />
+            <Route path="/rules" element={<Rules />} />
           </Route>
 
           {/* ADMIN ROUTES */}
