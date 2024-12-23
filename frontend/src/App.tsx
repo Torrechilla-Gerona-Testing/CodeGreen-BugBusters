@@ -24,6 +24,10 @@ import Protocols from "./pages/Policies/Protocols.tsx";
 import Rules from "./pages/Policies/Rules.tsx";
 import ChangePassword from "./pages/ChangePassword.tsx";
 
+import About from "./pages/LogOut/About.tsx";
+import Rule from "./pages/LogOut/Rule.tsx";
+import Protocol from "./pages/LogOut/Proto.tsx";
+
 import RequireAuth from "./components/RequireAuth.tsx";
 import PersistLogin from "./components/PersistLogin.tsx";
 
@@ -47,6 +51,14 @@ const Main = () => {
 
         <Route path="/signup" element={<SignUpPage />} />
 
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/protocols" element={<Protocols />} />
+        <Route path="/rules" element={<Rules />} />
+
+        <Route path="/outabout" element={<About />} />
+        <Route path="/outprotocols" element={<Protocol />} />
+        <Route path="/outrules" element={<Rule />} />
+        
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
         <Route element={<PersistLogin />}>
@@ -57,10 +69,8 @@ const Main = () => {
           {/* USER ROUTES */}
           <Route element={<RequireAuth forAdmin={false} />}>
             <Route path="/homepage" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
             <Route path="/register-driver" element={<RegisterDriver />} />
-            <Route path="/protocols" element={<Protocols />} />
-            <Route path="/rules" element={<Rules />} />
+     
           </Route>
 
           {/* ADMIN ROUTES */}

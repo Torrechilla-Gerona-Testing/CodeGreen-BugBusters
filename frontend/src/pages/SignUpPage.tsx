@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UserSignUp } from "../types/user.types";
 import useSignUp from "../hooks/useSignUp";
 import { Spinner } from "react-activity";
+import LandingPageHeader from "../components/LandingPageHeader";
 
 const initialFormData = {
   last_name: "",
@@ -36,7 +37,14 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex relative justify-center items-center bg-signup-bg bg-cover bg-no-repeat sm:bg-top md:bg-right h-screen overflow-hidden">
+    <div className="flex flex-col items-center bg-login-bg bg-cover bg-center sm:bg-cover md:bg-contain lg:bg-cover h-screen">
+
+      <div
+        className="mb-24"
+      >
+          <LandingPageHeader/ >
+      </div>
+
       <div className="flex bg-transparent p-6 rounded-lg w-full max-w-3xl mt-10 space-x-5">
         <div className="w-1/2 flex flex-col justify-center items-start font-syke-medium text-textgreen lg:text-4xl md:text-3xl sm:text-2xl text-xl gap-2">
           <h1>Stay compliant.</h1>

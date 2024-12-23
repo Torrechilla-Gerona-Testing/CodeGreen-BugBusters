@@ -1,17 +1,17 @@
-import Header from "../../components/Header";
+import LandingPageHeader from "../../components/LandingPageHeader";
 import ProtocolComp from "../../components/ProtocolComp";
-const Protocols = () => {
+const Protocol = () => {
   return (
     <div className="flex flex-col items-center bg-policies-bg bg-cover bg-no-repeat sm:bg-top md:bg-right lg:bg-left w-screen h-screen">
 
       <div 
       className="w-full"
       >
-        <Header/>
+        <LandingPageHeader/>
       </div>
         <ProtocolComp/>
     </div>
   );
 };
 
-export default Protocols;
+export default Protocol;
