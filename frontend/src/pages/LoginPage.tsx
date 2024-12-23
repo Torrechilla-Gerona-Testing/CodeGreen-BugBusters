@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
 import { Spinner } from "react-activity";
-
+import LandingPageHeader from "../components/LandingPageHeader";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +19,14 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center bg-login-bg bg-no-repeat bg-cover sm:bg-top md:bg-right lg:bg-left h-screen">
+    <div className="flex flex-col items-center bg-login-bg bg-cover bg-center sm:bg-cover md:bg-contain lg:bg-cover h-screen">
+
+      <div
+        className="mb-24"
+      >
+          <LandingPageHeader/ >
+      </div>
+
       <div className="flex bg-transparent p-6 rounded-lg w-full max-w-3xl mx-auto space-x-5">
         <div className="w-1/2">
           <h2 className="lg:text-3xl md:text-2xl sm:text-xl text-lg text-textgreen font-syke-regular">
