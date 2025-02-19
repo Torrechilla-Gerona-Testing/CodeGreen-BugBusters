@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import AddCar from "./AddCar";
 import { DriverWithVandC } from "../types/datatypes";
 
@@ -34,6 +35,21 @@ const AddCarButton = ({
       )}
     </>
   );
+};
+
+
+AddCarButton.propTypes = {
+  activeSection: PropTypes.string.isRequired, 
+  driver: PropTypes.shape({
+    id: PropTypes.string.isRequired, 
+    license_number: PropTypes.string.isRequired, 
+    first_name: PropTypes.string.isRequired, 
+    last_name: PropTypes.string.isRequired, 
+    cars: PropTypes.array, 
+    violations: PropTypes.array,
+  }).isRequired, 
+  vehicleModalActive: PropTypes.bool.isRequired, 
+  setVehicleModalActive: PropTypes.func.isRequired, 
 };
 
 export default AddCarButton;
