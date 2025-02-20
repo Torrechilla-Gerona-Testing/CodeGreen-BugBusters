@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Car } from "../types/datatypes";
 import useAddCar from "../hooks/car-hooks/useAddCar";
 import { toast } from "react-toastify";
@@ -7,22 +8,28 @@ const AddCar = ({
   driverId,
   licenseNumber,
   setVehicleModalActive,
+  formData: initialFormData,
+  currentStep: initialStep = 1, // Add currentStep to the props with a default value
 }: {
   driverId: string;
   licenseNumber: string;
   setVehicleModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+  formData?: Car;
+  currentStep?: number; // Add currentStep to the props
 }) => {
   const { postCar } = useAddCar();
 
-  const [formData, setFormData] = useState<Car>({
-    driver_id: driverId,
-    brand: "",
-    car_model: "",
-    color: "",
-    license_number: licenseNumber,
-  });
+  const [formData, setFormData] = useState<Car>(
+    initialFormData || {
+      driver_id: driverId,
+      brand: "",
+      car_model: "",
+      color: "",
+      license_number: licenseNumber,
+    }
+  );
 
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(initialStep);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -208,6 +215,21 @@ const AddCar = ({
       </div>
     </div>
   );
+};
+
+// Define PropTypes
+AddCar.propTypes = {
+  driverId: PropTypes.string.isRequired,
+  licenseNumber: PropTypes.string.isRequired,
+  setVehicleModalActive: PropTypes.func.isRequired,
+  formData: PropTypes.shape({
+    driver_id: PropTypes.string,
+    brand: PropTypes.string,
+    car_model: PropTypes.string,
+    color: PropTypes.string,
+    license_number: PropTypes.string,
+  }),
+  currentStep: PropTypes.number, // Add currentStep to propTypes
 };
 
 export default AddCar;

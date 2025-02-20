@@ -81,6 +81,7 @@ const LoginPage = () => {
               />
 
               <span
+                data-testid="toggle-password-visibility"
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={(e) => {
                   e.preventDefault(); 
