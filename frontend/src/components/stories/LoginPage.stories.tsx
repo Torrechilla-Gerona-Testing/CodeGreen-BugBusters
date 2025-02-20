@@ -41,9 +41,9 @@ SuccessfulLogin.play = async ({ canvasElement }) => {
   const submitButton = canvas.getByTestId("login-button");
 
  
-  await userEvent.type(emailInput, "test@example.com", { delay: 100 });
+  await userEvent.type(emailInput, "Nonoygerona@gmail.com", { delay: 100 });
   await waitFor(() => new Promise((resolve) => setTimeout(resolve, 500))); // Add delay
-  await userEvent.type(passwordInput, "password123", { delay: 100 });
+  await userEvent.type(passwordInput, "12345678", { delay: 100 });
   await waitFor(() => new Promise((resolve) => setTimeout(resolve, 500))); // Add delay
 
   
@@ -60,7 +60,7 @@ PasswordVisibilityToggled.play = async ({ canvasElement }) => {
   const passwordInput = canvas.getByPlaceholderText("Enter your password");
   const toggleButton = canvas.getByTestId("toggle-password-visibility");
 
-  await userEvent.type(passwordInput, "password123", { delay: 100 });
+  await userEvent.type(passwordInput, "Gwapoako123", { delay: 100 });
   await waitFor(() => new Promise((resolve) => setTimeout(resolve, 500))); // Add delay
   await userEvent.click(toggleButton);
 };
