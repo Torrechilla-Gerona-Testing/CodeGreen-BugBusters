@@ -42,10 +42,9 @@ SuccessfulLogin.play = async ({ canvasElement }) => {
 
  
   await userEvent.type(emailInput, "Nonoygerona@gmail.com", { delay: 100 });
-  await waitFor(() => new Promise((resolve) => setTimeout(resolve, 500))); // Add delay
+  await waitFor(() => new Promise((resolve) => setTimeout(resolve, 500))); 
   await userEvent.type(passwordInput, "12345678", { delay: 100 });
-  await waitFor(() => new Promise((resolve) => setTimeout(resolve, 500))); // Add delay
-
+  await waitFor(() => new Promise((resolve) => setTimeout(resolve, 500))); 
   
   await userEvent.click(submitButton);
 
@@ -57,10 +56,12 @@ SuccessfulLogin.play = async ({ canvasElement }) => {
 export const PasswordVisibilityToggled = Template.bind({});
 PasswordVisibilityToggled.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
+  const emailInput = canvas.getByPlaceholderText("Email address");
   const passwordInput = canvas.getByPlaceholderText("Enter your password");
   const toggleButton = canvas.getByTestId("toggle-password-visibility");
 
-  await userEvent.type(passwordInput, "Gwapoako123", { delay: 100 });
-  await waitFor(() => new Promise((resolve) => setTimeout(resolve, 500))); // Add delay
+  await userEvent.type(emailInput, "Nonoycutie@gmail.com", { delay: 100 });
+  await userEvent.type(passwordInput, "Tuodgid_niya", { delay: 100 });
+  await waitFor(() => new Promise((resolve) => setTimeout(resolve, 500))); 
   await userEvent.click(toggleButton);
 };
