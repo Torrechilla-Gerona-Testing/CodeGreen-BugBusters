@@ -2,17 +2,28 @@ import { StoryFn, Meta } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import AddCarButton from "../AddCarButton";
 
-
 export default {
   title: "Components/AddCarButton",
   component: AddCarButton,
   decorators: [
     (Story) => (
       <BrowserRouter>
-        <Story />
+        <div className="bg-secondgrey min-h-screen">
+          <Story />
+        </div>
       </BrowserRouter>
     ),
   ],
+  parameters: {
+    backgrounds: {
+      default: 'secondgrey', // Set the default background color
+      values: [
+        { name: 'lightgray', value: '#d3d3d3' },
+        { name: 'dark', value: '#333333' },
+        { name: 'secondgrey', value: '#f0f0f0' }, // Add your custom background color
+      ],
+    },
+  },
 } as Meta<typeof AddCarButton>;
 
 const Template: StoryFn<typeof AddCarButton> = (args) => <AddCarButton {...args} />;
@@ -49,7 +60,7 @@ VehicleModalActive.args = {
   setVehicleModalActive: () => {},
 };
 
-//3rd story
+// 3rd story
 export const NoVehicle = Template.bind({});
 NoVehicle.args = {
   activeSection: "",
