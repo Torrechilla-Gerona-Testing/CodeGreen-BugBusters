@@ -17,11 +17,11 @@ export default {
   ],
   parameters: {
     backgrounds: {
-      default: 'secondgrey', // Set the default background color
+      default: 'secondgrey', 
       values: [
         { name: 'lightgray', value: '#d3d3d3' },
         { name: 'dark', value: '#333333' },
-        { name: 'secondgrey', value: '#f0f0f0' }, // Add your custom background color
+        { name: 'secondgrey', value: '#f0f0f0' }, 
       ],
     },
   },
