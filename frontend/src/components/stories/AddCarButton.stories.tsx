@@ -4,7 +4,7 @@ import AddCarButton from "../AddCarButton";
 
 
 export default {
-  title: "AddCarButton",
+  title: "Components/AddCarButton",
   component: AddCarButton,
   decorators: [
     (Story) => (
